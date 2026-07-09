@@ -7,10 +7,10 @@ permalink: /assets/data/brands-{{ lang }}.json
 eleventyExcludeFromCollections: true
 layout: null
 ---
-[{% for item in collections.casinos | forLang(lang) %}{% if not item.data.blacklisted and item.data.score != null %}
-{"t":{{ item.data.title | dump | safe }},"u":"{{ item.url }}","c":"casino","s":{{ item.data.score }},"r":"{{ item.data.reputation.code | default('') }}","i":"{{ metadata.images.casinos }}{{ item.fileSlug }}-logo.webp","d":{{ item.data.description | dump | safe }}}{% if not loop.last or collections.forex | forLang(lang) | length > 0 or collections.binaries | forLang(lang) | length > 0 %},{% endif %}
-{% endif %}{% endfor %}{% for item in collections.forex | forLang(lang) %}{% if not item.data.blacklisted and item.data.score != null %}
-{"t":{{ item.data.title | dump | safe }},"u":"{{ item.url }}","c":"forex","s":{{ item.data.score }},"r":"{{ item.data.reputation.code | default('') }}","i":"{{ metadata.images.forex }}{{ item.fileSlug }}-logo.webp","d":{{ item.data.description | dump | safe }}}{% if not loop.last or collections.binaries | forLang(lang) | length > 0 %},{% endif %}
-{% endif %}{% endfor %}{% for item in collections.binaries | forLang(lang) %}{% if not item.data.blacklisted and item.data.score != null %}
+[{% for item in collections.casinos | forLang(lang) | forSearchJson %}
+{"t":{{ item.data.title | dump | safe }},"u":"{{ item.url }}","c":"casino","s":{{ item.data.score }},"r":"{{ item.data.reputation.code | default('') }}","i":"{{ metadata.images.casinos }}{{ item.fileSlug }}-logo.webp","d":{{ item.data.description | dump | safe }}}{% if not loop.last or collections.forex | forLang(lang) | forSearchJson | length > 0 or collections.binaries | forLang(lang) | forSearchJson | length > 0 %},{% endif %}
+{% endfor %}{% for item in collections.forex | forLang(lang) | forSearchJson %}
+{"t":{{ item.data.title | dump | safe }},"u":"{{ item.url }}","c":"forex","s":{{ item.data.score }},"r":"{{ item.data.reputation.code | default('') }}","i":"{{ metadata.images.forex }}{{ item.fileSlug }}-logo.webp","d":{{ item.data.description | dump | safe }}}{% if not loop.last or collections.binaries | forLang(lang) | forSearchJson | length > 0 %},{% endif %}
+{% endfor %}{% for item in collections.binaries | forLang(lang) | forSearchJson %}
 {"t":{{ item.data.title | dump | safe }},"u":"{{ item.url }}","c":"binary","s":{{ item.data.score }},"r":"{{ item.data.reputation.code | default('') }}","i":"{{ metadata.images.binaries }}{{ item.fileSlug }}-logo.webp","d":{{ item.data.description | dump | safe }}}{% if not loop.last %},{% endif %}
-{% endif %}{% endfor %}]
+{% endfor %}]

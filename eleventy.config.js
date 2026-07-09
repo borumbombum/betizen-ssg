@@ -93,6 +93,13 @@ module.exports = function (eleventyConfig) {
     return filtered;
   });
 
+  // Filter items for search JSON (exclude blacklisted and null-score)
+  eleventyConfig.addFilter("forSearchJson", function (collection) {
+    return collection.filter(function (item) {
+      return !item.data.blacklisted && item.data.score != null;
+    });
+  });
+
   // Filter by featured post
   eleventyConfig.addFilter("featured", function (collection) {
     const filtered = collection.filter((item) => {
