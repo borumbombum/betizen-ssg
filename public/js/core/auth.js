@@ -159,15 +159,25 @@ window.BZ.auth = {
     if (btn) btn.disabled = true;
 
     try {
+      if (!window.nostr?.signEvent) {
+        document.dispatchEvent(new CustomEvent("nlLaunch", { detail: "welcome" }));
+      }
+
       const challengeRes = await window.BZ.api.auth.getNostrChallenge();
       const challenge = challengeRes.data.challenge;
 
-      const signedEvent = await window.nostr.signEvent({
+      const signPromise = window.nostr.signEvent({
         kind: 22242,
         tags: [["challenge", challenge]],
         content: "Cubiq authentication",
         created_at: Math.floor(Date.now() / 1000),
       });
+
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Login cancelled or timed out")), 60000)
+      );
+
+      const signedEvent = await Promise.race([signPromise, timeout]);
 
       window.BZ.state.set("ui.loading", true);
       const apiResponse = await window.BZ.api.auth.loginWithNostr({
@@ -190,7 +200,7 @@ window.BZ.auth = {
       document.getElementById("bz_modal_1")?.close();
     } catch (error) {
       console.error("Nostr login error:", error);
-      showToast("Nostr login failed", "error");
+      showToast(error.message || "Nostr login failed", "error");
     } finally {
       window.BZ.state.set("ui.loading", false);
       if (btn) btn.disabled = false;
