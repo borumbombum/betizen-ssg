@@ -35,7 +35,7 @@ module.exports = {
       name: "1xBet",
       title: "100% BONO DE BIENVENIDA HASTA €100 🤯 EN 1XBET!",
       cta: "¡RECLAMA TU BONO EN 1XBET!",
-      url: "/casino/1xbet/",
+      url: "https://reffpa.com/L?tag=d_5827615m_97c_&site=5827615&ad=97",
     },
     casino2: {
       logo: "/assets/imgs/casinos/national-argentina-logo.webp",
@@ -129,7 +129,7 @@ module.exports = {
     tagline3:
       "Transparencia extrema para usuarios, operadores y reguladores ;)",
     taglineHome:
-      "¡Esparcí karma votando sitios, sube en la tabla de líderes y accedé a beneficios exclusivos!",
+      "¡Esparcí karma votando sitios, subí en la tabla de líderes y accedé a beneficios exclusivos!",
     karma: {
       title: "¡Tu karma!",
       content: `

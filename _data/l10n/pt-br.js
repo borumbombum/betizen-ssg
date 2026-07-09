@@ -34,7 +34,7 @@ module.exports = {
       name: "1xBet",
       title: "100% BÔNUS DE BOAS-VINDAS ATÉ €100 🤯 NA 1XBET!",
       cta: "RECLAME SEU BÔNUS NA 1XBET!",
-      url: "/pt-br/cassino/1xbet-analise/",
+      url: "https://reffpa.com/L?tag=d_5827615m_97c_&site=5827615&ad=97",
     },
     casino2: {
       logo: "/assets/imgs/casinos/national-argentina-logo.webp",

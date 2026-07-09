@@ -34,7 +34,7 @@ module.exports = {
       name: "1xBet",
       title: "100% WILLKOMMENSBONUS BIS ZU €100 🤯 BEI 1XBET!",
       cta: "SICHERN SIE SICH IHREN BONUS BEI 1XBET!",
-      url: "/de/online-casino/1xbet/",
+      url: "https://reffpa.com/L?tag=d_5827615m_97c_&site=5827615&ad=97",
     },
     casino2: {
       logo: "/assets/imgs/casinos/national-argentina-logo.webp",
