@@ -92,13 +92,46 @@ window.BZ.auth = {
       });
     }
 
-    // Only if your API provides avatar
-    if (user.avatar) {
-      const avatarElements = document.querySelectorAll(".bz-user-avatar");
-      avatarElements.forEach((el) => {
+    // Set initials for avatar fallback
+    const initials = this.getInitials(user.name);
+    document.querySelectorAll(".bz-avatar-initials").forEach((el) => {
+      el.textContent = initials;
+    });
+
+    // Handle avatar image with fallback
+    const avatarElements = document.querySelectorAll(".bz-user-avatar");
+    avatarElements.forEach((el) => {
+      if (user.avatar) {
         el.src = user.avatar;
-      });
-    }
+        el.style.display = "";
+        el.onerror = () => {
+          el.style.display = "none";
+          const container = el.closest(".bz-avatar-container");
+          if (container) {
+            const initialsEl = container.querySelector(".bz-avatar-initials");
+            if (initialsEl) initialsEl.style.display = "flex";
+          }
+        };
+        // Hide initials when image is set (shown on error)
+        const container = el.closest(".bz-avatar-container");
+        if (container) {
+          const initialsEl = container.querySelector(".bz-avatar-initials");
+          if (initialsEl) initialsEl.style.display = "none";
+        }
+      } else {
+        el.style.display = "none";
+        const container = el.closest(".bz-avatar-container");
+        if (container) {
+          const initialsEl = container.querySelector(".bz-avatar-initials");
+          if (initialsEl) initialsEl.style.display = "flex";
+        }
+      }
+    });
+  },
+
+  getInitials(name) {
+    if (!name) return "?";
+    return name.trim().split(/\s+/).slice(0, 2).map((w) => w[0].toUpperCase()).join("") || "?";
   },
 
   //   async login(email, password) {

@@ -31,18 +31,18 @@ module.exports = {
         cta: "Regístrate y obten $5 grátis",
       },
       casino: {
+        logo: "/assets/imgs/casinos/1xbet-logo.webp",
+        name: "1xBet",
+        title: "100% BONO DE BIENVENIDA HASTA €100 🤯 EN 1XBET!",
+        cta: "¡RECLAMA TU BONO EN 1XBET!",
+        url: "/casino/1xbet/",
+      },
+      casino2: {
         logo: "/assets/imgs/casinos/national-argentina-logo.webp",
         name: "National",
         title: "HASTA 100 GIROS GRÁTIS 🤯 ¡En National!",
         cta: "¡RECLAMA TUS 100 GIROS GRATIS 🤯 ¡En National!",
         url: "https://media.toxtren.com/redirect.aspx?pid=101348&bid=2036&redirectURL=https://natregs.com",
-      },
-      casino2: {
-        logo: "/assets/imgs/casinos/spinbetter-casino-logo.webp",
-        name: "SpinBetter Casino",
-        title: "HASTA 300 GIROS GRÁTIS 🤯 ¡PROMO LIMITADA!",
-        cta: "¡RECLAMA TUS 300 GIROS GRATIS HOY!",
-        url: "https://redirspinner.com/2Bxv?p=%2Fregistration%2F",
       },
       external_250x250: metadata.images.banners + "banner_20bet_300x300.webp",
     },
@@ -173,6 +173,9 @@ module.exports = {
       votingFailed: "¡El voto falló! Karma insuficiente?",
       votingSuccess:
         "¡Gracias por votar! Los listados se actualizan una vez al día.",
+      heartVoteLabel: "Dar karma",
+      heartVotedLabel: "¡Karma regalado!",
+      heartVoteAgainLabel: "¡Dar karma otra vez!",
 
       featured: "Destacado",
       visit: "Visitar",
@@ -279,7 +282,9 @@ module.exports = {
 
       writeComment: "Escriba su comentario...",
       commentPublished: "Comentario publicado con éxito",
-      comments: "Comentarios"
+      comments: "Comentarios",
+      noComments: "Todavía no hay comentarios. ¡Sé el primero y gana karma!",
+      commentsError: "No se pudieron cargar los comentarios."
     },
   },
   "pt-br": {
@@ -330,6 +335,13 @@ module.exports = {
       //   url: "https://refpazitag.top/L?tag=d_4136349m_25437c_&site=4136349&ad=25437",
       // },
       casino: {
+        logo: "/assets/imgs/casinos/1xbet-logo.webp",
+        name: "1xBet",
+        title: "100% BÔNUS DE BOAS-VINDAS ATÉ €100 🤯 NA 1XBET!",
+        cta: "RECLAME SEU BÔNUS NA 1XBET!",
+        url: "/pt-br/cassino/1xbet-analise/",
+      },
+      casino2: {
         logo: "/assets/imgs/casinos/national-argentina-logo.webp",
         name: "National",
         title: "ATÉ 100 RODADAS GRÁTIS 🤯 NO NATIONAL!",
@@ -467,6 +479,10 @@ module.exports = {
       votingFailed: "A votação falhou! Karma insuficiente?",
       votingSuccess:
         "Obrigado por votar! As listas são atualizadas uma vez por dia.",
+      heartVoteLabel: "Dar karma",
+      heartVotedLabel: "Karma dado!",
+      heartVoteAgainLabel: "Dar karma novamente!",
+
       visit: "Visitar",
       visitCasino: "Visitar cassino",
       visitSite: "Visitar&nbsp;site",
@@ -571,7 +587,9 @@ module.exports = {
 
       writeComment: "Escreva seu comentário...",
       commentPublished: "Comentário publicado com sucesso",
-      comments: "Comentários"
+      comments: "Comentários",
+      noComments: "Nenhum comentário ainda. Seja o primeiro e ganhe karma!",
+      commentsError: "Não foi possível carregar os comentários."
     },
   },
   en: {
@@ -609,18 +627,18 @@ module.exports = {
         cta: "Register and get $5 free",
       },
       casino: {
+        logo: "/assets/imgs/casinos/1xbet-logo.webp",
+        name: "1xBet",
+        title: "100% WELCOME BONUS UP TO €100 🤯 AT 1XBET!",
+        cta: "CLAIM YOUR BONUS AT 1XBET!",
+        url: "/casino/1xbet/",
+      },
+      casino2: {
         logo: "/assets/imgs/casinos/national-argentina-logo.webp",
         name: "National",
         title: "UP TO 100 FREE SPINS 🤯 AT NATIONAL!",
         cta: "UP TO 100 FREE SPINS 🤯 AT NATIONAL!",
         url: "https://media.toxtren.com/redirect.aspx?pid=101348&bid=2036&redirectURL=https://natregs.com",
-      },
-      casino2: {
-        logo: "/assets/imgs/casinos/spinbetter-casino-logo.webp",
-        name: "SpinBetter Casino",
-        title: "UP TO 150 FREE SPINS 🤯 LIMITED PROMOTION!",
-        cta: "CLAIM YOUR 150 FREE SPINS TODAY!",
-        url: "https://redirspinner.com/2Bxv?p=%2Fregistration%2F",
       },
       external_250x250: metadata.images.banners + "coinsgame-300x300.png",
     },
@@ -742,6 +760,10 @@ module.exports = {
       featured: "Featured",
       votingFailed: "Voting failed! Insufficient karma?",
       votingSuccess: "Thanks for voting! Listings update once a day.",
+      heartVoteLabel: "Give karma",
+      heartVotedLabel: "Karma given!",
+      heartVoteAgainLabel: "Give karma again!",
+
       visit: "Visit",
       visitCasino: "Visit casino",
       visitSite: "Visit&nbsp;site",
@@ -846,7 +868,9 @@ module.exports = {
 
       writeComment: "Write your comment...",
       commentPublished: "Comment published successfully",
-      comments: "Comments"
+      comments: "Comments",
+      noComments: "No comments yet. Be the first and earn karma!",
+      commentsError: "Could not load comments."
     },
   },
 };

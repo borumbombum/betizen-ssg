@@ -58,9 +58,24 @@ window.BZ.voting = {
           .classList.remove("modal-open");
       }
     });
+
+    // Handle browser back button after external redirect (bfcache restore)
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) {
+        document.getElementById("modal-external-click")?.classList.remove("modal-open");
+        window.BZ.state.set("ui.currentModal", null);
+        document.querySelectorAll("[data-earnurl]:disabled").forEach((btn) => {
+          btn.disabled = false;
+        });
+      }
+    });
   },
 
   async handleVote(button) {
+    if (button.classList.contains("heart-btn")) {
+      return this.handleHeartVote(button);
+    }
+
     if (!window.BZ.state.get("auth.isAuthenticated")) {
       window.BZ.auth.showLoginModal();
       return;
@@ -105,6 +120,96 @@ window.BZ.voting = {
     } finally {
       button.disabled = false;
       button.classList.remove("loading");
+    }
+  },
+
+  async handleHeartVote(button) {
+    if (!window.BZ.state.get("auth.isAuthenticated")) {
+      window.BZ.auth.showLoginModal();
+      return;
+    }
+
+    const entityId = button.dataset.entityId;
+    const karma = button.dataset.karma;
+
+    try {
+      button.disabled = true;
+
+      const response = await window.BZ.api.voting.vote({
+        entity_id: entityId,
+        karma: Number(karma),
+      });
+
+      button.classList.add("liked");
+
+      const label = button.querySelector(".heart-label");
+      const votedText = label ? label.dataset.votedText : "";
+      if (label) {
+        label.textContent = votedText;
+        label.classList.add("opacity-100");
+        label.classList.remove("opacity-60");
+
+        setTimeout(() => {
+          let count = 3;
+          label.textContent = votedText + " (" + count + ")";
+
+          const interval = setInterval(() => {
+            count--;
+            if (count > 0) {
+              label.textContent = votedText + " (" + count + ")";
+            } else {
+              clearInterval(interval);
+              button.classList.remove("liked");
+              label.textContent = label.dataset.againText;
+              label.classList.add("opacity-60");
+              label.classList.remove("opacity-100");
+            }
+          }, 1000);
+        }, 500);
+      }
+
+      const svg = button.querySelector("svg");
+      if (svg) {
+        svg.classList.remove("animate-pop");
+        void svg.offsetWidth;
+        svg.classList.add("animate-pop");
+        this.createParticles(svg);
+      }
+
+      showToast(`${getTranslation("texts.votingSuccess")}`, "success");
+
+      if (response && response.data.newKarma != null) {
+        window.BZ.state.set("auth.user.karma", response.data.newKarma);
+      }
+      if (response && response.data.newRank != null) {
+        window.BZ.state.set("auth.user.rank", response.data.newRank);
+      }
+    } catch (error) {
+      console.error("Vote failed", error);
+      showToast(`${getTranslation("texts.votingFailed")}`, "error");
+    } finally {
+      button.disabled = false;
+    }
+  },
+
+  createParticles(targetEl) {
+    const rect = targetEl.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const colors = ["#dc3545", "#ff6b6b", "#ff8787", "#f03e3e", "#c92a2a", "#ffa8a8", "#e03131", "#fa5252"];
+
+    for (let i = 0; i < 12; i++) {
+      const particle = document.createElement("div");
+      particle.className = "heart-particle";
+      const angle = (Math.PI * 2 * i) / 12;
+      const dist = 40 + Math.random() * 40;
+      particle.style.setProperty("--tx", `${Math.cos(angle) * dist}px`);
+      particle.style.setProperty("--ty", `${Math.sin(angle) * dist}px`);
+      particle.style.background = colors[i % colors.length];
+      particle.style.left = `${cx}px`;
+      particle.style.top = `${cy}px`;
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 750);
     }
   },
 

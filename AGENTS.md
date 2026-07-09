@@ -8,9 +8,8 @@ Betizen is an 11ty (Eleventy) static site generator for casino, binary options, 
 
 All Cubiq's products uses the Cubiq API as a Backend-as-a-Service
 
-* API Docs: https://api.cubiq.lat/docs — JSON format: https://api.cubiq.lat/docs-json
-* Main API URL: https://api.cubiq.lat
-* Postman Collection: https://documenter.getpostman.com/view/44402542/2sBXVhBqLM
+- API Docs: https://api.cubiq.lat/docs — JSON format: https://api.cubiq.lat/docs-json
+- Main API URL: https://api.cubiq.lat
 
 ## Agent Guidelines
 
@@ -169,6 +168,7 @@ public/                # Static assets (copied to /assets/)
 The project uses vanilla JavaScript with a module-based architecture exposed via the global `window.BZ` namespace.
 
 **Core Modules (`public/js/core/`):**
+
 - `state.js` - Global state management with pub/sub pattern
 - `api.js` - API client for backend communication
 - `auth.js` - Authentication (Google, Nostr)
@@ -176,11 +176,13 @@ The project uses vanilla JavaScript with a module-based architecture exposed via
 - `cms.js` - Comments system
 
 **Feature Modules (`public/js/modules/`):**
+
 - `modal.js` - Modal dialog component
 - `toast.js` - Toast notification component
 - `casino-search.js` - Client-side fuzzy search for casino list
 
 **Initialization Pattern:**
+
 ```javascript
 // In app.js
 window.BZ = window.BZ || {};
@@ -191,6 +193,7 @@ window.BZ.casinoSearch.init();
 ```
 
 **Adding a New Module:**
+
 1. Create `public/js/modules/your-module.js`
 2. Wrap in `window.BZ = window.BZ || {}; window.BZ.yourModule = { ... }`
 3. Include in bundle in `_includes/layouts/base.njk`
@@ -198,6 +201,7 @@ window.BZ.casinoSearch.init();
 
 **CSS Animations:**
 Custom animations are defined in `public/css/app.css`:
+
 ```css
 @keyframes fadeIn { ... }
 @keyframes fadeOut { ... }
@@ -225,12 +229,23 @@ Custom animations are defined in `public/css/app.css`:
 - `nunjucks` - Template engine
 - `luxon` - Date/time handling
 
-## Git Conventions
+### Casino Content & Reputation Fields
 
-- **Never commit changes** without explicit permission
-- Commit message format: `AGENT: <description>`
-- **Bump version BEFORE creating each commit** - If a `package.json` exists, bump the patch version by 1 (e.g. `0.7.80` → `0.7.81`) BEFORE creating the commit. This applies to ALL commits — code changes, documentation, refactoring, etc. NEVER create a commit without first bumping the version. If committing code changes separately from the version bump, ensure both commits are pushed together in a single push operation.
-- Do not commit secrets or `.env` files
+Each casino `.njk` file has a `reputation.code` field that controls the badge displayed:
+
+| Code         | Badge Color             | ES Label   | PT-BR Label | EN Label   |
+| ------------ | ----------------------- | ---------- | ----------- | ---------- |
+| `fair`       | 🟢 Green (btn-success)  | Justo      | Justo       | Fair       |
+| `acceptable` | 🔵 Blue (btn-info)      | Aceptable  | Aceitável   | Acceptable |
+| `caution`    | 🟡 Yellow (btn-warning) | Precaución | Cuidado     | Caution    |
+| `dangerous`  | 🔴 Red (btn-danger)     | Peligroso  | Perigoso    | Dangerous  |
+
+Other key frontmatter fields:
+
+- `blacklisted: true` — Hides "Visit Site" button, shows warning banner, adds to blacklist page
+- `featured: true` — Adds to `featuredCasinos` collection (does not affect sort order)
+- `score` — Controls sort position in listings (higher = first). Must match review tone.
+- `bonus.link` — Affiliate/redirect URL for "Visit Site" and bonus buttons
 
 ## Finding Correct Internal Links
 
@@ -241,6 +256,7 @@ When translating content from one language to another, internal links must be up
 3. **Look for the correct path**: Run `ls _site/en/game/` or `ls _site/en/provider/` etc.
 
 Example:
+
 ```bash
 # After building, find correct game URLs
 ls _site/en/game/ | grep -i catrina

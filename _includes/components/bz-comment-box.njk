@@ -46,7 +46,7 @@
         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
       </svg>
-      <p class="text-sm">{{ getTranslation("texts.noComments") if getTranslation else "No comments yet. Be the first!" }}</p>
+      <p class="text-sm">{{ languages[page.lang].texts.noComments }}</p>
     </div>
 
     <div id="bz-comments-error" class="hidden">
@@ -56,7 +56,7 @@
           <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
         </svg>
         <span id="bz-comments-error-msg">
-          {{ getTranslation("texts.commentsError") if getTranslation else "Could not load comments." }}
+          {{ languages[page.lang].texts.commentsError }}
         </span>
       </div>
     </div>
@@ -72,7 +72,7 @@
     <div class="shrink-0">
       <div class="avatar placeholder">
         <div class="bz-avatar-img bg-neutral text-neutral-content rounded-full size-9 text-sm font-bold">
-          <span class="bz-avatar-initials">?</span>
+          <span class="bz-avatar-initials flex items-center justify-center w-full h-full">?</span>
         </div>
       </div>
     </div>
@@ -151,8 +151,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const img = document.createElement("img");
       img.src = comment.author_avatar || comment.user.picture;
       img.alt = authorName;
-      img.className = "rounded-full size-9 object-cover";
-      avatarWrap.replaceWith(img);
+      img.className = "size-9 rounded-full object-cover";
+      img.onerror = function () {
+        this.remove();
+        initialsEl.style.display = "flex";
+      };
+      initialsEl.style.display = "none";
+      avatarWrap.prepend(img);
     }
 
     authorEl.textContent = authorName;

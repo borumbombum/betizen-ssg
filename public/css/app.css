@@ -124,3 +124,57 @@ html {
   opacity: 0;
   transform: translateY(-5px);
 }
+
+/* Heart voting button */
+.heart-btn {
+  position: relative;
+  transition: transform 0.2s ease;
+  overflow: visible;
+}
+
+.heart-btn:not(.liked):hover {
+  transform: scale(1.15);
+}
+
+.heart-btn svg {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.heart-btn.liked svg {
+  fill: #dc3545;
+  stroke: #dc3545;
+}
+
+.heart-btn.animate-pop svg {
+  animation: heartPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes heartPop {
+  0%   { transform: scale(1); }
+  15%  { transform: scale(1.35); }
+  30%  { transform: scale(0.9); }
+  45%  { transform: scale(1.2); }
+  60%  { transform: scale(1); }
+}
+
+/* Particle burst */
+.heart-particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  animation: heartParticleBurst 0.7s ease-out forwards;
+}
+
+@keyframes heartParticleBurst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(0);
+  }
+}

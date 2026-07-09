@@ -204,11 +204,10 @@
                         </div>  
 
                         {# User image #}
-                        <div class="avatar">
-                            <div class="bg-neutral text-neutral-content w-8 md:w-10 rounded-full hover:ring-[#FBF234] hover:ring-4 hover:ring-offset-3">
-                                <div class="w-8 md:w-10 rounded-full">
-                                    <img alt="user-image" class="bz-user-avatar" src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
-                                </div>
+                        <div class="avatar placeholder">
+                            <div class="bz-avatar-container bg-neutral text-neutral-content w-8 md:w-10 rounded-full hover:ring-[#FBF234] hover:ring-4 hover:ring-offset-3 relative overflow-hidden">
+                                <img alt="user-image" class="bz-user-avatar w-full h-full object-cover" src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+                                <span class="bz-avatar-initials hidden absolute inset-0 flex items-center justify-center text-[10px] md:text-xs font-bold select-none">?</span>
                             </div>
                         </div>
                 </div>                

@@ -9,6 +9,9 @@ module.exports = {
   // Default karma used for voting buttons
   karmaPoints: 21,
 
+  // Voting UI style: "classic" for thumbs up/down, "heart" for Instagram-style heart
+  votingStyle: "heart",
+
   links: {
     mediaKit:
       "https://drive.google.com/file/d/1F4TnQ5foN-RXavhRTnKrxeqLhcZen7O2/view?usp=sharing",
