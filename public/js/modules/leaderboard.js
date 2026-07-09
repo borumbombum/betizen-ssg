@@ -16,7 +16,11 @@ window.BZ.leaderboard = {
     const avatarUrl =
       user.picture ||
       "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.name);
-    const karmaFormatted = user.karma.toLocaleString();
+    const karmaFormatted = (Number(user.total_karma_given) + Number(user.karma)).toLocaleString();
+    const nameParts = user.name.split(" ");
+    const shortName = nameParts.length > 1
+      ? nameParts[0] + " " + nameParts.at(-1)[0] + "."
+      : user.name;
 
     return `
       <tr>
@@ -29,7 +33,7 @@ window.BZ.leaderboard = {
               </div>
             </div>
             <div>
-              <div class="font-bold">${user.name}</div>
+              <div class="font-bold">${shortName}</div>
             </div>
           </div>
         </td>
@@ -40,11 +44,16 @@ window.BZ.leaderboard = {
 
   async fetchLeaderboard(tbody) {
     try {
-      const response = await window.BZ.api.lists.listUsers({ limit: 20, sort: "karma", order: "desc" });
-      const users = response.data.data;
+      const response = await window.BZ.api.lists.listUsers({ limit: 20 });
+      const hiddenUsers = ["Futurewise", "Cubiq"];
+      const users = response.data.data.filter(
+        (user) => !hiddenUsers.includes(user.name)
+      ).sort(
+        (a, b) => (b.total_karma_given + b.karma) - (a.total_karma_given + a.karma)
+      );
 
       tbody.innerHTML = users
-        .map((user) => this.renderRow(user))
+        .map((user, index) => this.renderRow({ ...user, rank: index + 1 }))
         .join("");
     } catch (error) {
       console.error("Failed to load leaderboard:", error);

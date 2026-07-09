@@ -120,7 +120,10 @@ module.exports = {
     tagline:
       "The first Casino, Binary & Forex listing site with the right incentives",
     tagline2: "karma, merit & proof-of-work",
-    tagline3: "Extreme transparency for users, operators, and regulators ;)",
+    tagline3:
+      "Extreme transparency for users, operators, and regulators ;)",
+    taglineHome:
+      "Spread karma by voting on sites, climb the leaderboard and access exclusive benefits!",
     karma: {
       title: "Your karma!",
       content: `
@@ -212,6 +215,10 @@ module.exports = {
     transparency: "Transparency",
     rankings: "Rankings",
     ranking: "Ranking",
+    leaderboardRank: "Rank",
+    leaderboardUser: "User",
+    leaderboardKarma: "Karma",
+    leaderboard: "Leaderboard",
     volatility: "Volatility",
     minMaxBets: "Min/Max Bets",
     maxWin: "Max Win",

@@ -10,7 +10,7 @@ layout: layouts/base.njk
 {%- set splashPath -%}{{ metadata.images.forex }}{{ page.fileSlug }}-splash.webp{%- endset -%}
 
 <!-- Casino Review Card -->
-<div class="max-w-6xl mx-auto debug-container">
+<div class="max-w-6xl mx-auto debug-container" data-bz-entity-id="{{ page.fileSlug }}">
     <!-- Casino Review Card -->
     <div class="bg-white rounded-xl shadow-lg">
         <!-- Background & Logo -->
@@ -74,7 +74,7 @@ layout: layouts/base.njk
                 <!-- Rating -->
                 <div class="text-right">
                     <div class="flex md:top-auto relative items-center">
-                        <span class="text-4xl font-bold text-gray-400">#
+                        <span class="text-4xl font-bold text-gray-400" data-bz-rank>#
                           {{ ranking }}
                         </span>
                         {# {{ karmaButton("0") }} #}

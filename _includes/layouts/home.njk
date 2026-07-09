@@ -27,7 +27,7 @@ eleventyComputed:
 
 {# Home banner #}
 {% if config.showHomeBanner %}
-    <section class="max-w-6xl mx-auto px-5 mt-12">
+    <section class="max-w-6xl mx-auto px-5 mt-8">
         {%- include "components/bz-banner-hero.njk" -%}
     </section>
 {% endif %}
@@ -35,7 +35,7 @@ eleventyComputed:
 <section class="max-w-6xl mx-2 md:mx-auto {% if not config.showHomeBanner %}mt-16{% endif %}">
     <div>
 
-        <div class="flex flex-col items-start justify-between md:mb-4 prose prose-xs md:prose-lg min-w-full prose-p:my-[10px] px-6 md:px-12 mt-12 relative">
+        <div class="flex flex-col items-start justify-between md:mb-4 prose prose-xs md:prose-lg min-w-full prose-p:my-[10px] px-6 md:px-12 mt-10 relative">
 
             {# Site Tagline Header #}
             <a href="{{ '/nosotros/' | locale_url }}" class="-top-1 md:top-0 right-2 md:right-1 scale-90 btn btn-secondary btn-xs md:btn-sm text-white shadow-lg z-50 rounded-xl text-xs md:text-sm absolute px-3 hover:border cursor-pointer">
@@ -45,10 +45,11 @@ eleventyComputed:
 
             <h1 class="!mb-2">{{ languages[page.lang].texts.tagline2 }}</h1>
             <h2 class="text-gray-400 !mt-0 !mb-6">
-                {{ languages[page.lang].texts.tagline }}:
-                <strong class="font-bold">{{ languages[page.lang].texts.tagline2 }}</strong>.
-                    {# {{ languages[page.lang].texts.tagline3 }} #}
+                {# {{ languages[page.lang].texts.tagline }}: #}
+                {{ languages[page.lang].texts.taglineHome }}
+                {# <strong class="font-bold">{{ languages[page.lang].texts.tagline2 }}</strong>. #}
             </h2>
+            {# <p class="text-gray-500 !mt-0">{{ languages[page.lang].texts.taglineHome }}</p> #}
 
         </div>
 

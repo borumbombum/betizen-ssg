@@ -128,6 +128,8 @@ module.exports = {
     tagline2: "karma, mérito y proof-of-work",
     tagline3:
       "Transparencia extrema para usuarios, operadores y reguladores ;)",
+    taglineHome:
+      "¡Esparcí karma votando sitios, sube en la tabla de líderes y accedé a beneficios exclusivos!",
     karma: {
       title: "¡Tu karma!",
       content: `
@@ -223,6 +225,10 @@ module.exports = {
     transparency: "Transparencia",
     rankings: "Rankings",
     ranking: "Ranking",
+    leaderboardRank: "Puesto",
+    leaderboardUser: "Usuario",
+    leaderboardKarma: "Karma",
+    leaderboard: "Leaderboard",
     volatility: "Volatilidad",
     minMaxBets: "Min/Max Bets",
     maxWin: "Ganancia max.",
@@ -286,6 +292,6 @@ module.exports = {
     commentPublished: "Comentario publicado con éxito",
     comments: "Comentarios",
     noComments: "Todavía no hay comentarios. ¡Sé el primero y gana karma!",
-    commentsError: "No se pudieron cargar los comentarios."
+    commentsError: "No se pudieron cargar los comentarios.",
   },
 };

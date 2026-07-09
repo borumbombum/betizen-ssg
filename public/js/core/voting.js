@@ -60,6 +60,9 @@ window.BZ.voting = {
       }
     });
 
+    // Load entity karma/rank on single-entity pages
+    this.loadEntityKarma();
+
     // Handle browser back button after external redirect (bfcache restore)
     window.addEventListener("pageshow", (event) => {
       if (event.persisted) {
@@ -105,6 +108,9 @@ window.BZ.voting = {
       if (response && response.data.newRank != null) {
         window.BZ.state.set("auth.user.rank", response.data.newRank);
       }
+
+      // Refresh entity karma after vote
+      this.loadEntityKarma();
 
       // Update local state
       // const userVotes = window.BZ.state.get("voting.userVotes");
@@ -185,6 +191,9 @@ window.BZ.voting = {
       if (response && response.data.newRank != null) {
         window.BZ.state.set("auth.user.rank", response.data.newRank);
       }
+
+      // Refresh entity karma after vote
+      this.loadEntityKarma();
     } catch (error) {
       console.error("Vote failed", error);
       showToast(`${getTranslation("texts.votingFailed")}`, "error");
@@ -316,6 +325,28 @@ window.BZ.voting = {
       }
     } catch {
       console.error("Failed to get user karma data", error);
+    }
+  },
+
+  async loadEntityKarma() {
+    const entityId = document.querySelector("[data-bz-entity-id]")?.dataset.bzEntityId;
+    if (!entityId) return;
+
+    try {
+      const response = await window.BZ.api.voting.getEntityKarma([entityId]);
+      const entity = response?.data?.entities?.[0];
+      if (!entity) return;
+
+      const rankEl = document.querySelector("[data-bz-rank]");
+      if (rankEl) rankEl.textContent = `#${entity.rank}`;
+
+      const karmaValueEl = document.querySelector("[data-bz-karma-value]");
+      if (karmaValueEl) karmaValueEl.textContent = `${entity.karma} karma `;
+
+      const voteCountEl = document.querySelector("[data-bz-vote-count]");
+      if (voteCountEl) voteCountEl.textContent = `(${entity.vote_count})`;
+    } catch {
+      // Silently fail — static values remain as fallback
     }
   },
 

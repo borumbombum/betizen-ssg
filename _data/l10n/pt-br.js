@@ -130,6 +130,8 @@ module.exports = {
     tagline2: "karma, mérito e proof-of-work",
     tagline3:
       "Transparência extrema para usuários, operadores e reguladores ;)",
+    taglineHome:
+      "Espalhe karma votando em sites, suba na tabela de classificação e acesse benefícios exclusivos!",
     karma: {
       title: "Seu karma!",
       content: `
@@ -222,6 +224,10 @@ module.exports = {
     transparency: "Transparência",
     rankings: "Avaliações",
     ranking: "Avaliação",
+    leaderboardRank: "Posição",
+    leaderboardUser: "Usuário",
+    leaderboardKarma: "Karma",
+    leaderboard: "Leaderboard",
     volatility: "Volatilidade",
     minMaxBets: "Min/Max",
     maxWin: "Ganho Máx.",

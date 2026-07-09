@@ -99,6 +99,11 @@ window.BZ.api = {
       },
     },
 
+    getEntityKarma: async (entityIds) => {
+      const query = new URLSearchParams({ entity_ids: entityIds.join(",") }).toString();
+      return window.BZ.api.request(`/voting/entity/karma?${query}`);
+    },
+
     // Count link vistit even if the user is not loggeed-in
     countVisit: async (payload) => {
       console.log("Trying to count +1 visit to this link...");

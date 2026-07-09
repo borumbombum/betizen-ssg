@@ -1,98 +1,71 @@
 <!-- {{ tags }} -->
 
-{% if tags and tags.includes("casinos") %}
-    {%- set logoPath -%}{{ metadata.images.casinos }}{{ page.fileSlug }}-logo.webp{%- endset -%}
-    <script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "WebPage",
-        "url": "{{ page.url | htmlBaseUrl(metadata.url) }}",
-        "mainEntity": {
-            "@type": "CriticReview",
-            "name": "{{ pageTitle }}",
-            "reviewBody": "{{ description }}",
-            "itemReviewed": {
-                "@type": "Organization",
-                "name": "{{ title }}",
-                "logo": {
-                    "@type": "imageObject",
-                    "url": "{{ logoPath | htmlBaseUrl(metadata.url)  }}"
-                    }
-            },
-            "author": {
-                "@type": "Organization",
-                "name": "Betizen",
-                "url": "{{ metadata.url }}",
-                "knowsAbout": [
-                    "Online Casinos",
-                    "Casino Games",
-                    "Gambling Industry",
-                    "Slots"
-                    ]
-            },
-            "publisher": {
-                "@type": "Organization",
-                "name": "Betizen",
-                "url": "{{ metadata.url }}",
-                "publishingPrinciples": "{{ '/nosotros/' | locale_url | htmlBaseUrl(metadata.url) }}",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "{{ '/assets/favs/apple-touch-icon.png' | htmlBaseUrl(metadata.url) }}"
+{% if tags and (tags.includes("casinos") or tags.includes("forex") or tags.includes("binaries")) %}
+    {%- set categoryMap = {
+        "casinos": ["Online Casinos", "Casino Games", "Gambling Industry", "Slots"],
+        "forex": ["Forex Brokers", "Currency Trading", "CFD Trading"],
+        "binaries": ["Binary Options", "Options Trading", "Financial Trading"]
+    } -%}
+    {%- set imageFolder = { "casinos": metadata.images.casinos, "forex": metadata.images.forex, "binaries": metadata.images.binaries } -%}
+
+    {%- for tagKey, knowsAboutList in categoryMap -%}
+        {%- if tags.includes(tagKey) -%}
+            {%- set logoPath -%}{{ imageFolder[tagKey] }}{{ page.fileSlug }}-logo.webp{%- endset -%}
+            <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": {{ pageTitle | dump | safe }},
+                "description": {{ description | dump | safe }},
+                "url": {{ page.url | htmlBaseUrl(metadata.url) | dump | safe }},
+                "image": {{ logoPath | htmlBaseUrl(metadata.url) | dump | safe }},
+                "about": {
+                    "@type": "Organization",
+                    "name": {{ title | dump | safe }},
+                    "logo": {{ logoPath | htmlBaseUrl(metadata.url) | dump | safe }}
                 },
-                "contactPoint": {
-                    "@type" : "ContactPoint",
-                    "email" : "{{ metadata.author.email }}",
-                    "contactType" : "customer service"
+                "author": {
+                    "@type": "Organization",
+                    "name": "Betizen",
+                    "url": {{ metadata.url | dump | safe }},
+                    "knowsAbout": {{ knowsAboutList | dump | safe }}
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Betizen",
+                    "url": {{ metadata.url | dump | safe }},
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": {{ '/assets/favs/apple-touch-icon.png' | htmlBaseUrl(metadata.url) | dump | safe }}
+                    }
                 }
-            },
-            "reviewRating": {
-                "@type": "Rating",
-                "worstRating": 0,
-                "bestRating": 10,
-                "ratingValue": {{ score or "0.0" }}
             }
-        }
-    }
-    </script>
+            </script>
+        {%- endif -%}
+    {%- endfor -%}
 {% endif %}
 
 {% if tags and tags.includes("games") %}
     {%- set logoPath -%}{{ metadata.images.games }}{{ page.fileSlug }}-logo.webp{%- endset -%}
-
     <script type="application/ld+json">
     {
-        "@context": "http://schema.org",
-        "@type": "VideoGame",
-        "name": "{{ title }}",
-        "url": "{{ page.url | htmlBaseUrl(metadata.url) }}",
-        "image": "{{ logoPath | htmlBaseUrl(metadata.url)  }}",     
-        "description" : "{{ description }}",
-        "applicationCategory": "Game",
-        "operatingSystem" : "Multi-platform",
-        "aggregateRating":{
-            "@type":"AggregateRating",
-            "ratingValue":"{{ game.score }}",
-            "ratingCount" : "1",
-            "bestRating" : "5",
-            "worstRating" : "0"            
-        },
-        "author":{
-            "@type" : "Organization",
-            "name" : "Betizen",
-            "url" : "{{ metadata.url }}"
+        "@context": "https://schema.org",
+        "@type": "Game",
+        "name": {{ title | dump | safe }},
+        "url": {{ page.url | htmlBaseUrl(metadata.url) | dump | safe }},
+        "image": {{ logoPath | htmlBaseUrl(metadata.url) | dump | safe }},
+        "description": {{ description | dump | safe }},
+        "genre": "slot",
+        "author": {
+            "@type": "Organization",
+            "name": "Betizen",
+            "url": {{ metadata.url | dump | safe }}
         },
         "publisher": {
             "@type": "Organization",
-            "name": "{{ provider.name }}",
-            "url": "{{ provider.url | htmlBaseUrl(metadata.url) }}"
-        },
-        "genre": "slot",
-        "gamePlatform": ["Laptop", "Tablet", "Mobile"],
-        "playMode": "SinglePlayer",
-        "audience": {
-            "@type": "PeopleAudience",
-            "requiredMinAge": "18"
+            "name": {{ provider.name | dump | safe }},
+            "url": {{ provider.url | htmlBaseUrl(metadata.url) | dump | safe }}
         }
     }
-    </script>  
+    </script>
 {% endif %}

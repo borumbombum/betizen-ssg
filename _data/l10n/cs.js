@@ -124,6 +124,8 @@ module.exports = {
     tagline2: "karma, zásluhy a proof-of-work",
     tagline3:
       "Extrémní transparentnost pro uživatele, provozovatele a regulátory ;)",
+    taglineHome:
+      "Šiřte karmu hlasováním o stránkách, stoupejte v žebříčku lídrů a získejte přístup k exkluzivním výhodám!",
     karma: {
       title: "Vaše karma!",
       content: `
@@ -215,6 +217,10 @@ module.exports = {
     transparency: "Transparentnost",
     rankings: "Žebříčky",
     ranking: "Žebříček",
+    leaderboardRank: "Pořadí",
+    leaderboardUser: "Uživatel",
+    leaderboardKarma: "Karma",
+    leaderboard: "Žebříčku",
     volatility: "Volatilita",
     minMaxBets: "Min/Max sázky",
     maxWin: "Max. výhra",

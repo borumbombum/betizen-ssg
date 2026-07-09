@@ -1,5 +1,5 @@
 {% macro karmaButton(karma="0", buttonTriggerClass="bz-karma-count") %}
     <button class="btn btn-sm !py-0 px-0 md:px-auto btn-ghost btn-rounded md:btn-md">
-        <div class="{{ buttonTriggerClass }} badge badge-soft badge-primary badge-md md:badge-lg">{{ karma }}&nbsp;karma</div>
+        <div class="{{ buttonTriggerClass }} badge badge-soft badge-primary badge-md md:badge-lg" data-bz-karma><span data-bz-karma-value>{{ karma }}&nbsp;karma</span> <span data-bz-vote-count></span></div>
     </button>
 {%endmacro%}

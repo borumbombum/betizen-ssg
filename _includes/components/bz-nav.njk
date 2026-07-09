@@ -55,7 +55,7 @@
                     <li class="text-base text-primary-content opacity-80">
                         <a href="{{ '/leaderboard/' | locale_url }}">
                             👑 
-                            <span>Leaderboard</span>
+                            {{ languages[page.lang].texts.leaderboard }}
                         </a>
                     </li>
 
@@ -86,7 +86,7 @@
                     title="Betizen"
                     class="h-5 md:h-6 -top-[1px] relative invert-logo"
                 />
-                <div class="absolute -top-1 md:-top-2 -right-3 badge badge-xs md:badge-sm badge-soft badge-secondary text-xs">beta</div>
+                <div class="absolute -top-1 md:-top-2 -right-3 badge badge-xs md:badge-sm badge-soft badge-secondary text-xs">v{{ config.version }}</div>
             </a>
         </div>
 
@@ -136,7 +136,7 @@
                     <a href="{{ '/leaderboard/' | locale_url }}" class="px-2">
                         {# <i data-lucide="trophy" strokeWidth={1} class="h-[17px]"></i> #}
                         <span class="relative -top-[2px]">👑</span>
-                        <span>Leaderboard</span>
+                        <span>{{ languages[page.lang].texts.leaderboard }}</span>
                     </a>
                 </li>
 
