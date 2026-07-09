@@ -154,8 +154,47 @@ window.BZ.auth = {
   //   },
 
   async loginWithNostr() {
-    alert("Soon...");
-    c.log("Login with Nostr.");
+    if (!window.nostr) {
+      showToast("Please install a Nostr extension like nos2x or Alby.", "error");
+      return;
+    }
+
+    try {
+      window.BZ.state.set("ui.loading", true);
+
+      const challengeRes = await window.BZ.api.auth.getNostrChallenge();
+      const challenge = challengeRes.data.challenge;
+
+      const signedEvent = await window.nostr.signEvent({
+        kind: 22242,
+        tags: [["challenge", challenge]],
+        content: "Cubiq authentication",
+        created_at: Math.floor(Date.now() / 1000),
+      });
+
+      const apiResponse = await window.BZ.api.auth.loginWithNostr({
+        signed_event: JSON.stringify(signedEvent),
+        challenge,
+      });
+
+      const token = apiResponse.data.access_token;
+      const user = apiResponse.data.user;
+
+      localStorage.setItem("bz_token", token);
+      localStorage.setItem("bz_user", JSON.stringify(user));
+
+      window.BZ.state.set("auth.token", token);
+      window.BZ.state.set("auth.user", user);
+      window.BZ.state.set("auth.isAuthenticated", true);
+
+      showToast(getTranslation("texts.welcome"), "success");
+
+      document.getElementById("bz_modal_1")?.close();
+    } catch (error) {
+      showToast("Nostr login failed", "error");
+    } finally {
+      window.BZ.state.set("ui.loading", false);
+    }
   },
 
   async handleCredentialResponse(response) {
@@ -213,7 +252,7 @@ window.BZ.auth = {
 
           <div class="divider uppercase">${getTranslation("texts.or")}</div>
           
-          <button disabled type="button" id="nostr-login-btn" class="btn btn-outline dark:btn-ghost dark:shadow-none dark:border-none rounded w-full dark:hover:bg-[#5E5F60] font-normal text-[14px] text-[#3C4044] dark:text-[#e8eaed] dark:bg-[#202124] border-[#DADCE0]">
+          <button type="button" id="nostr-login-btn" class="btn btn-outline dark:btn-ghost dark:shadow-none dark:border-none rounded w-full dark:hover:bg-[#5E5F60] font-normal text-[14px] text-[#3C4044] dark:text-[#e8eaed] dark:bg-[#202124] border-[#DADCE0]">
               ${getTranslation("texts.loginWithNostr")}
           </button>
         </form>

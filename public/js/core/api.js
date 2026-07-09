@@ -60,6 +60,13 @@ window.BZ.api = {
         method: "POST",
         body: JSON.stringify({ credential: credential }),
       }),
+    getNostrChallenge: () =>
+      window.BZ.api.request("/users/auth/nostr/challenge", { method: "POST" }),
+    loginWithNostr: (payload) =>
+      window.BZ.api.request("/users/auth/nostr/login", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      }),
   },
 
   // Voting API endpoints
