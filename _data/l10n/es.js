@@ -59,6 +59,7 @@ module.exports = {
     poker: { name: "Video poker", url: "/juegos/video-poker/" },
   },
   texts: {
+    nostrLoginFailed: "El login con Nostr falló. Asegurate de tener un signer.",
     poweredBy: "Con tecnología",
     karmaEarnRedirecting: "Redireccionado...",
     karmaPoints: "puntos de karma",

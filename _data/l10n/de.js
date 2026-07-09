@@ -55,6 +55,8 @@ module.exports = {
     poker: { name: "Video Poker", url: "/de/spiele/video-poker/" },
   },
   texts: {
+    nostrLoginFailed:
+      "Nostr-Login fehlgeschlagen. Stelle sicher, dass du einen Signer hast.",
     poweredBy: "Unterstützt von",
     karmaEarnRedirecting: "Weiterleitung...",
     karmaPoints: "Karma-Punkte",
@@ -167,7 +169,8 @@ module.exports = {
     },
     featured: "Empfohlen",
     votingFailed: "Abstimmung fehlgeschlagen! Nicht genug Karma?",
-    votingSuccess: "Danke für Ihre Stimme! Die Listen werden einmal täglich aktualisiert.",
+    votingSuccess:
+      "Danke für Ihre Stimme! Die Listen werden einmal täglich aktualisiert.",
     heartVoteLabel: "Karma geben",
     heartVotedLabel: "Karma gegeben!",
     heartVoteAgainLabel: "Erneut Karma geben!",
@@ -283,7 +286,8 @@ module.exports = {
     writeComment: "Schreiben Sie Ihren Kommentar...",
     commentPublished: "Kommentar erfolgreich veröffentlicht",
     comments: "Kommentare",
-    noComments: "Noch keine Kommentare. Seien Sie der Erste und verdienen Sie Karma!",
-    commentsError: "Kommentare konnten nicht geladen werden."
+    noComments:
+      "Noch keine Kommentare. Seien Sie der Erste und verdienen Sie Karma!",
+    commentsError: "Kommentare konnten nicht geladen werden.",
   },
 };

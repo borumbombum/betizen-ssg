@@ -55,6 +55,8 @@ module.exports = {
     poker: { name: "Video poker", url: "/cs/hry/video-poker/" },
   },
   texts: {
+    nostrLoginFailed:
+      "Přihlášení přes Nostr selhalo. Ujistěte se, že máte signer.",
     poweredBy: "Poháněno",
     karmaEarnRedirecting: "Přesměrování...",
     karmaPoints: "karma bodů",
@@ -192,8 +194,7 @@ module.exports = {
     searchBrands: "Hledat všechny značky...",
     searchNoResults: "Žádné značky neodpovídají vašemu vyhledávání",
     latestGames: "Nejnovější hry",
-    latestGamesTeaser:
-      "Nejnovější sloty, binga a stolní hry uvedené na trh!",
+    latestGamesTeaser: "Nejnovější sloty, binga a stolní hry uvedené na trh!",
     featuredProviders: "Doporučení poskytovatelé",
     featuredProvidersText:
       "Prozkoumejte nejlepší tvůrce slotů, binga a plinko her",
@@ -285,6 +286,6 @@ module.exports = {
     commentPublished: "Komentář úspěšně publikován",
     comments: "Komentáře",
     noComments: "Zatím žádné komentáře. Buďte první a získejte karmu!",
-    commentsError: "Nepodařilo se načíst komentáře."
+    commentsError: "Nepodařilo se načíst komentáře.",
   },
 };

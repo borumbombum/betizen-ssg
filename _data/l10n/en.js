@@ -51,6 +51,7 @@ module.exports = {
     roulette: { name: "Roulette", url: "/en/games/online-roulette/" },
   },
   texts: {
+    nostrLoginFailed: "Nostr login failed. Make sure you have a signer.",
     poweredBy: "Powered by",
     karmaEarnRedirecting: "Redirecting...",
     karmaPoints: "karma points",
@@ -120,8 +121,7 @@ module.exports = {
     tagline:
       "The first Casino, Binary & Forex listing site with the right incentives",
     tagline2: "karma, merit & proof-of-work",
-    tagline3:
-      "Extreme transparency for users, operators, and regulators ;)",
+    tagline3: "Extreme transparency for users, operators, and regulators ;)",
     taglineHome:
       "Spread karma by voting on sites, climb the leaderboard and access exclusive benefits!",
     karma: {
@@ -282,6 +282,6 @@ module.exports = {
     commentPublished: "Comment published successfully",
     comments: "Comments",
     noComments: "No comments yet. Be the first and earn karma!",
-    commentsError: "Could not load comments."
+    commentsError: "Could not load comments.",
   },
 };

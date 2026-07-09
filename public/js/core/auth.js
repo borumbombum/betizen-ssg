@@ -131,7 +131,14 @@ window.BZ.auth = {
 
   getInitials(name) {
     if (!name) return "?";
-    return name.trim().split(/\s+/).slice(0, 2).map((w) => w[0].toUpperCase()).join("") || "?";
+    return (
+      name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((w) => w[0].toUpperCase())
+        .join("") || "?"
+    );
   },
 
   //   async login(email, password) {
@@ -160,7 +167,9 @@ window.BZ.auth = {
 
     try {
       if (!window.nostr?.signEvent) {
-        document.dispatchEvent(new CustomEvent("nlLaunch", { detail: "welcome" }));
+        document.dispatchEvent(
+          new CustomEvent("nlLaunch", { detail: "welcome" }),
+        );
       }
 
       const challengeRes = await window.BZ.api.auth.getNostrChallenge();
@@ -174,7 +183,10 @@ window.BZ.auth = {
       });
 
       const timeout = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Login cancelled or timed out")), 60000)
+        setTimeout(
+          () => reject(new Error("Login cancelled or timed out")),
+          60000,
+        ),
       );
 
       const signedEvent = await Promise.race([signPromise, timeout]);
@@ -200,7 +212,10 @@ window.BZ.auth = {
       document.getElementById("bz_modal_1")?.close();
     } catch (error) {
       console.error("Nostr login error:", error);
-      showToast(error.message || "Nostr login failed", "error");
+      showToast(
+        error.message || getTranslation("texts.nostrLoginFailed"),
+        "error",
+      );
     } finally {
       window.BZ.state.set("ui.loading", false);
       if (btn) btn.disabled = false;
@@ -212,7 +227,7 @@ window.BZ.auth = {
     try {
       window.BZ.state.set("ui.loading", true);
       const apiResponse = await window.BZ.api.auth.loginWithGoogle(
-        response.credential
+        response.credential,
       );
 
       const token = apiResponse.data.access_token;
@@ -285,7 +300,7 @@ window.BZ.auth = {
       const containerWidth = container.offsetWidth;
       const buttonWidth = Math.min(
         containerWidth > 0 ? containerWidth : 300,
-        400
+        400,
       );
 
       // Render the Google button
