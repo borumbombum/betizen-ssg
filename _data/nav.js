@@ -159,5 +159,27 @@ module.exports = function () {
         id: "term-binary",
       },
     ],
+    de: [
+      {
+        text: "Casinos",
+        url: "/de/online-casinos/",
+        id: "term-id-5",
+      },
+      {
+        text: "Krypto",
+        url: "/de/online-casinos/krypto/",
+        id: "term-crypto",
+      },
+      {
+        text: "Forex",
+        url: "/de/forex/",
+        id: "term-forex",
+      },
+      {
+        text: "Binär",
+        url: "/de/binaere-optionen/",
+        id: "term-binary",
+      },
+    ],
   };
 };

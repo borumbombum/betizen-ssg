@@ -3,4 +3,5 @@ module.exports = {
   "pt-br": require("./l10n/pt-br.js"),
   en: require("./l10n/en.js"),
   cs: require("./l10n/cs.js"),
+  de: require("./l10n/de.js"),
 };

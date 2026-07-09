@@ -426,6 +426,18 @@ Where `{binary_slug}` is the URL path segment for binary options (e.g., `binarni
 
 For `games/` and `providers/`, follow the same closure pattern with `tags: ["games"]` / `tags: ["providers"]` and appropriate layouts and slugs.
 
+#### Listing pages (non-detail, explicit permalink)
+
+These filter/listing pages are **not** managed by `.11tydata.js` closure patterns — they use **explicit `permalink`** in front matter:
+
+| File | Permalink | Layout |
+|------|-----------|--------|
+| `forex/forex.njk` | `/{url_prefix}/forex/` | `layouts/forex.njk` |
+| `binaries/binaries.njk` | `/{url_prefix}/{binary_list_slug}/` | `layouts/binaries.njk` |
+| `casinos/crypto.njk` | `/{url_prefix}/{casino_list_slug}/{crypto_slug}/` | `layouts/base.njk` |
+
+**IMPORTANT — `affiliate-programs.njk` caveat**: This page uses a **hardcoded `{% set programs = [...] %}` array** with program data, not a collection loop. When creating it for a new language, copy from an existing language (e.g., ES) and translate descriptions, FAQ, and labels. Program names, commissions, links, and logos stay unchanged across languages. Do NOT use `collections.affiliatePrograms` — it will render empty.
+
 ### Step 8: Translate a starter casino (1xBet reference)
 
 Create `content/{lang}/casinos/1xbet.njk`. Use the Spanish version as source for structure, the English version as source for translation style.
@@ -480,6 +492,10 @@ Checklist:
 - [ ] `/{url_prefix}/index.html` renders at `_site/{url_prefix}/index.html`
 - [ ] `/{url_prefix}/{casino_list_slug}/` renders at `_site/{url_prefix}/{casino_list_slug}/index.html`
 - [ ] `/{url_prefix}/{casino_slug}/1xbet/` renders at `_site/{url_prefix}/{casino_slug}/1xbet/index.html`
+- [ ] `/{url_prefix}/forex/` renders at `_site/{url_prefix}/forex/index.html`
+- [ ] `/{url_prefix}/{binary_list_slug}/` renders at `_site/{url_prefix}/{binary_list_slug}/index.html`
+- [ ] `/{url_prefix}/{casino_list_slug}/{crypto_slug}/` renders at `_site/{url_prefix}/{casino_list_slug}/{crypto_slug}/index.html`
+- [ ] `/{url_prefix}/affiliate-programme/` renders with hardcoded program list (not empty)
 - [ ] Language switcher modal shows the new flag + language name
 - [ ] `locale_url` nav links work (Casinos → `/{url_prefix}/{casino_list_slug}/`, Forex → `/{url_prefix}/forex/`)
 - [ ] hreflang tags in `<head>` include the new language alternate link
@@ -504,11 +520,14 @@ All non-default language `.11tydata.js` files use the **closure pattern** (`modu
 |-------------|----------------------------------|-------------------|
 | Any page (via `{lang}.11tydata.js`) | `"/" + LANG + "/" + this.slugify(data.slugOverride) + "/"` | N/A |
 | Casino detail (via `casinos.11tydata.js`) | `LANG + "/{casino_slug}/" + this.slugify(data.slugOverride) + "/"` | `/{lang}/{casino_list_slug}/` |
+| Crypto filter (via explicit permalink) | (not used) | `/{lang}/{casino_list_slug}/{crypto_slug}/` |
 | Blacklist page (via explicit permalink) | (not used) | `/{lang}/{casino_list_slug}/blacklist/` |
 | Page detail (via `pages.11tydata.js`) | `LANG + "/" + this.slugify(data.slugOverride) + "/"` | N/A |
 | Blog post (via `blog.11tydata.js`) | `LANG + "/{blog_slug}/" + this.slugify(data.slugOverride) + "/"` | `/{lang}/{blog_list_slug}/` |
-| Forex detail (via `forex.11tydata.js`) | `LANG + "/forex/" + this.slugify(data.slugOverride) + "/"` | Depends on listing |
-| Binary detail (via `binaries.11tydata.js`) | `LANG + "/{binary_slug}/" + this.slugify(data.slugOverride) + "/"` | Depends on listing |
+| Forex detail (via `forex.11tydata.js`) | `LANG + "/forex/" + this.slugify(data.slugOverride) + "/"` | `/{lang}/forex/` |
+| Forex listing (via explicit permalink) | (not used) | `/{lang}/forex/` |
+| Binary detail (via `binaries.11tydata.js`) | `LANG + "/{binary_slug}/" + this.slugify(data.slugOverride) + "/"` | `/{lang}/{binary_list_slug}/` |
+| Binary listing (via explicit permalink) | (not used) | `/{lang}/{binary_list_slug}/` |
 | Game detail (via `games.11tydata.js`) | `LANG + "/{game_slug}/" + this.slugify(data.slugOverride) + "/"` | `/{lang}/{games_list_slug}/` |
 | Provider detail (via `providers.11tydata.js`) | `LANG + "/{provider_slug}/" + this.slugify(data.slugOverride) + "/"` | `/{lang}/{providers_list_slug}/` |
 
@@ -528,9 +547,13 @@ All non-default language `.11tydata.js` files use the **closure pattern** (`modu
 | Create | `content/{lang}/casinos/casinos.11tydata.js` | Casino directory config (closure pattern) |
 | Create | `content/{lang}/casinos/casinos.njk` | Casino listing page (explicit permalink) |
 | Create | `content/{lang}/casinos/blacklisted.njk` | Blacklist page (layout: base.njk, explicit permalink) |
+| Create | `content/{lang}/casinos/crypto.njk` | Crypto casino filter page (explicit permalink) |
 | Create | `content/{lang}/casinos/1xbet.njk` | Starter casino review |
 | Create | `content/{lang}/pages/pages.11tydata.js` | Static pages config (closure pattern) |
+| Create | `content/{lang}/pages/affiliate-programs.njk` | **Hardcoded `{% set programs %}` array** — copy from ES, translate descriptions only |
 | Create | `content/{lang}/blog/blog.11tydata.js` | Blog posts config (closure pattern) |
 | Create | `content/{lang}/blog/archive.njk` | Blog listing page (explicit permalink) |
 | Create | `content/{lang}/forex/forex.11tydata.js` | Forex brokers config (closure pattern) |
+| Create | `content/{lang}/forex/forex.njk` | Forex listing page (explicit permalink, layout: layouts/forex.njk) |
 | Create | `content/{lang}/binaries/binaries.11tydata.js` | Binary options config (closure pattern) |
+| Create | `content/{lang}/binaries/binaries.njk` | Binary options listing page (explicit permalink, layout: layouts/binaries.njk) |

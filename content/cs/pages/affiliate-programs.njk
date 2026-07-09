@@ -34,7 +34,7 @@ slugOverride: affiliate-programy
 
             <div class="prose md:prose-lg min-w-full prose-p:my-[10px] mt-4">
                 <p>
-                    Chcete přidat své kasino na Betizen? Jste affiliate manažer? Pojďme spolupracovat!
+                    Chcete přidat své casino do Betizenu? Jste affiliate manager? Pojďme spolupracovat!
                     <a
                         target="_blank"
                         rel="nofollow noreferrer noopener"
@@ -43,77 +43,80 @@ slugOverride: affiliate-programy
                             event_category: 'affiliate',
                             event_label: 'add-casino-button'
                         });"                                
-                        >Zaregistrujte své kasino zde</a
+                        >Zaregistrujte své casino zde</a
                     >.
                 </p>
             </div>
 
+            <!-- Affiliate Programs List -->
             <div class="join join-vertical w-full mt-10">
               
               {% set programs = [
-                { name: "Playamo Partners", featured: true, review: "/cs/clanky/playamo-partners-programa-afiliados/", logo: "playamo-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "16% - 29%", link: "https://media.toxtren.com/redirect.aspx?pid=101348&bid=1988&redirectURL=https://www.registeramo.com", description: "Playamo Partners has a long-standing reputation for paying correctly for many years, even to small affiliates. They own several brands including National Casino or 20Bet, have a revenue share range of 25 to 45% minus administrative expenses and do not have a sub-affiliate program." },
-                { name: "Groupartners", logo: "groupartners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "22.76% - 40.97%", link: "https://media.groupartners.com/redirect.aspx?pid=2341&bid=1590", description: "Groupartners is the brand behind Tusk Casino. Its affiliate system is Netrefer, and has a promotional range of 25-45% revenue share and a real range of 23-41%." },
-                { name: "Betwinner Affiliates", logo: "betwinner-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", link: "https://bwredir.com/1t7Y?p=%2Fregistration%3FreturnUrl%3D%2Fslots", description: "The Betwinner affiliate program has a negative transfer if we set up weekly payments and does not carry losses if we set up monthly payments. Minimum winnings to withdraw are $30." },
-                { name: "FastPay Affiliates", logo: "fastpay-affiliates.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "18% - 33%", link: "https://fastpay-go.com/ae1864538", description: "Fasypay has a multi-brand affiliate program, with a rev-share range of 25% to 45% and a cookie duration of 30 days." },
-                { name: "Dafabet Afiliados", logo: "dafabet-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "30% - 40%", link: "https://banners.dfbanners.com/redirect.aspx?pid=57566&bid=18468", description: "Dafabet is an online casino originating from Asia that offers almost every possible vertical, from sports betting to casino and poker. Based in the Philippines where it is regulated, Dafabet is a growing brand with commissions of up to 30%." },
-                { name: "Total Affiliates", logo: "total-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "30% - 30%", link: "https://link.totalaffiliates.com/c/452287", description: "Total Affiliates is the affiliate program of casinos like Black Diamond Casino with a fixed commission percentage of 30% but whose real value is unknown. It has no negative carry and has a minimum payment of US$50 (with the exception of check and Bitcoin payments)." },
-                { name: "Rivalo Partners", logo: "rivalo-partners.webp", path: metadata.images.affiliatePrograms, commission: "20% - 40%", link: "https://rec.rivalo.com/_BVfiJm57JnoxoCT0MZ3VnmNd7ZgqdRLk/1/", description: "Not much is known officially about Rivalo's affiliate program, which theoretically offers a profit share of 20% to 40%. This program has not been audited." },
-                { name: "JVSpin Partners", logo: "jvspin-logo.webp", path: metadata.images.casinos, commission: "30% - 50%", link: "https://jvsbet.com//L?tag=d_1298587m_43701c_&site=1298587&ad=43701&r=es/slots/", description: "JVSpin Partners is the affiliate program of the JVSpin casino, a brand that uses the proprietary 1xBet software, and although it claims to have no administration fees, it is accepted that it charges 15% in administrative commissions. The progressive return varies from 30 to 50% depending on the number of customers referred." },
-                { name: "JimPartners", logo: "jimpartners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "12% - 21.6%", link: "https://jimpartners.com/user/sign-in/signup?ref_id=2838", description: "Jim Partners is the affiliate program for casinos like Slottica or AllRight and is known for having some of the most predatory and unfavorable administrative fees and terms in the industry, charging commissions of up to 40% on its affiliates' profits." },
-                { name: "Hola Partners", logo: "hola-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "15% - 27%", link: "https://wlholapartners.adsrv.eacdn.com/PPC.ashx?btag=a_923b_87c_&affid=151&siteid=923&adid=87&c=&channelid=1&MediaID=85&m=2|2&g=https%3a%2f%2fluckyelektra.com%2fes%2f%3fbtag%3da_923b_87c_%5baid%5d", description: "Hola Partners is the Lucky Elektra casino affiliate program (with an innovative and interesting design). They have no sub-affiliation and according to Affiliate Guard Dog a very poor real revenue share, with high administrative commissions." },
-                { name: "Gamesys Group", logo: "gamesys-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", link: "https://record.ppincome.net/_FJLgBR3akX4k_N3SoNXZh2Nd7ZgqdRLk/1/", description: "Formerly known as JPJ Group Affiliates, Gamesys is the affiliate program of important brands in the casino and bingo market such as Vera&John or Botemanía." },
-                { name: "Buffalo Partners", logo: "buffalo-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "23% - 40%", link: "https://www.buffalopartners.com/?s=bfp22546", description: "Buffalo Partners utilizes a casino affiliate program with over 15 years in the industry. However, or perhaps because of this, it has an activity rate (conditions for profit percentages)." },
-                { name: "Btag Media", logo: "btag-media-logo.webp", path: metadata.images.affiliatePrograms, commission: "20% - 40%", link: "https://partners.btagmedia.com/scripts/3vcn0h4?btagid=19569217&amp;bid=fff428ed", description: "BTagMedia is an affiliate metaprogram that includes casinos such as Bet4Joy, EvoBet, Betway or Brazino 777 among dozens of others, with commissions ranging from 20% to 40%." },
-                { name: "Betchain Affiliates", logo: "betchain-logo.webp", path: metadata.images.casinos, commission: "25% - 45%", real_commission: "25% - 40.5%", link: "https://betchainmedia.com/a9ab8ab54", description: "With high commissions and low (or zero) administrative fees, Betchain Affiliates is the Betchain casino program that appears to deliver what it promises. No negative transfer." },
-                { name: "Alpha Affiliates", logo: "alpha-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "17.5% - 31.5%", link: "https://partners.alpha-affiliates.com/#/affiliate_ref/1fd6e0ccf279e24bdb7b3642ab5c6655", description: "Alpha Affiliates is a program considered reliable, present in the gaming industry since 2012, it has offers of up to 40-50%, without negative carryover and with effective profit margins between 17% and 31%." },
-                { name: "1xBit Partners", logo: "1xbit-partners.webp", path: metadata.images.affiliatePrograms, commission: "25% - 40%", real_commission: "22.5% - 36%", link: "https://affpa.top/L?tag=d_615665m_97c_&site=615665&ad=97&r=es/slots/", description: "1xBit is a cryptocurrency casino, so we expect your payments and commissions to be in Bitcoin. Their commission range is 25% to 40%, with actual commissions of 23% to 36%. Eligible for affiliates interested in earning bitcoin, with this player profile." }
+                { name: "Playamo Partners", featured: true, review: "/blog/playamo-partners-programa-afiliados/", logo: "playamo-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "16% - 29%", link: "https://media.toxtren.com/redirect.aspx?pid=101348&bid=1988&redirectURL=https://www.registeramo.com", description: "Playamo Partners má dlouholetou pověst správného vyplácení po mnoho let, dokonce i malým affiliate partnerům. Vlastní několik značek, včetně National Casino nebo 20Bet, mají rozsah revenue share 25 až 45% minus administrativní náklady a nemají sub-affiliate program." },
+                { name: "Groupartners", logo: "groupartners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "22.76% - 40.97%", link: "https://media.groupartners.com/redirect.aspx?pid=2341&bid=1590", description: "Groupartners je značka stojící za Tusk Casino. Jejich affiliate systém je Netrefer a mají propagační rozsah 25-45% revenue share a skutečný 23-41%." },
+                { name: "Betwinner Affiliates", logo: "betwinner-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", link: "https://bwredir.com/1t7Y?p=%2Fregistration%3FreturnUrl%3D%2Fslots", description: "Affiliate program Betwinner má negativní přenos, pokud nastavíme týdenní platby, a nepřenáší ztráty, pokud nastavíme měsíční platby. Minimální výhra pro výběr je 30 $." },
+                { name: "FastPay Affiliates", logo: "fastpay-affiliates.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "18% - 33%", link: "https://fastpay-go.com/ae1864538", description: "Fastpay má multi-značkový affiliate program s rozsahem rev-share 25% až 45% a dobou trvání cookies 30 dní." },
+                { name: "Dafabet Afiliados", logo: "dafabet-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "30% - 40%", link: "https://banners.dfbanners.com/redirect.aspx?pid=57566&bid=18468", description: "Dafabet je online casino pocházející z Asie, které nabízí téměř všechny možné vertikály, od sportovního sázení po casino a poker. Se sídlem na Filipínách, kde je regulováno, je Dafabet rostoucí značkou s provizemi až 30%." },
+                { name: "Total Affiliates", logo: "total-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "30% - 30%", link: "https://link.totalaffiliates.com/c/452287", description: "Total Affiliates je affiliate program kasin jako Black Diamond Casino s fixním procentem provize 30%, jehož skutečná hodnota je však neznámá. Nemá negativní přenos a má minimální platbu 50 $ (s výjimkou šekových a Bitcoin plateb)." },
+                { name: "Rivalo Partners", logo: "rivalo-partners.webp", path: metadata.images.affiliatePrograms, commission: "20% - 40%", link: "https://rec.rivalo.com/_BVfiJm57JnoxoCT0MZ3VnmNd7ZgqdRLk/1/", description: "Oficiálně není o affiliate programu Rivalo mnoho známo, který teoreticky nabízí rev-share 20% až 40%. Tento program nebyl auditován." },
+                { name: "JVSpin Partners", logo: "jvspin-logo.webp", path: metadata.images.casinos, commission: "30% - 50%", link: "https://jvsbet.com//L?tag=d_1298587m_43701c_&site=1298587&ad=43701&r=es/slots/", description: "JVSpin Partners je affiliate program casina JVSpin, značky, která používá proprietární software 1xBet, a přestože tvrdí, že nemá admin poplatky, uznává se, že účtuje 15% administrativní provize. Progresivní výnos se pohybuje od 30 do 50% v závislosti na počtu doporučených zákazníků." },
+                { name: "JimPartners", logo: "jimpartners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "12% - 21.6%", link: "https://jimpartners.com/user/sign-in/signup?ref_id=2838", description: "Jim Partners je affiliate program pro kasina jako Slottica nebo AllRight a je známý tím, že má některé z nejpredátorštějších a nejnevýhodnějších administrativních poplatků a podmínek v oboru, účtuje až 40% provize z výdělků svých affiliate partnerů." },
+                { name: "Hola Partners", logo: "hola-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "15% - 27%", link: "https://wlholapartners.adsrv.eacdn.com/PPC.ashx?btag=a_923b_87c_&affid=151&siteid=923&adid=87&c=&channelid=1&MediaID=85&m=2|2&g=https%3a%2f%2fluckyelektra.com%2fes%2f%3fbtag%3da_923b_87c_%5baid%5d", description: "Hola Partners je affiliate program casina Lucky Elektra (s inovativním a zajímavým designem). Nemají sub-afiliaci a podle Affiliate Guard Dog velmi špatný skutečný revenue share s vysokými administrativními provizemi." },
+                { name: "Gamesys Group", logo: "gamesys-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", link: "https://record.ppincome.net/_FJLgBR3akX4k_N3SoNXZh2Nd7ZgqdRLk/1/", description: "Dříve známý jako JPJ Group Affiliates, Gamesys je affiliate program důležitých značek na trhu kasin a binga jako Vera&John nebo Botemanía." },
+                { name: "Buffalo Partners", logo: "buffalo-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "23% - 40%", link: "https://www.buffalopartners.com/?s=bfp22546", description: "Buffalo Partners je casino affiliate program s více než 15 lety v oboru. Nicméně, nebo právě proto, má míru aktivity (podmínky pro procenta zisku)." },
+                { name: "Btag Media", logo: "btag-media-logo.webp", path: metadata.images.affiliatePrograms, commission: "20% - 40%", link: "https://partners.btagmedia.com/scripts/3vcn0h4?btagid=19569217&amp;bid=fff428ed", description: "BTagMedia je meta affiliate program, který zahrnuje kasina jako Bet4Joy, EvoBet, Betway nebo Brazino 777 mezi desítkami dalších, s provizemi od 20% do 40%." },
+                { name: "Betchain Affiliates", logo: "betchain-logo.webp", path: metadata.images.casinos, commission: "25% - 45%", real_commission: "25% - 40.5%", link: "https://betchainmedia.com/a9ab8ab54", description: "S vysokými provizemi a nízkými (nebo žádnými) administrativními poplatky je Betchain Affiliates programem casina Betchain, který zdá se plní, co slibuje. Bez negativního přenosu." },
+                { name: "Alpha Affiliates", logo: "alpha-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "17.5% - 31.5%", link: "https://partners.alpha-affiliates.com/#/affiliate_ref/1fd6e0ccf279e24bdb7b3642ab5c6655", description: "Alpha Affiliates je program považovaný za spolehlivý, přítomný v herním průmyslu od roku 2012, nabízí až 40-50%, bez negativního přenosu a s efektivními ziskovými maržemi mezi 17% a 31%." },
+                { name: "1xBit Partners", logo: "1xbit-partners.webp", path: metadata.images.affiliatePrograms, commission: "25% - 40%", real_commission: "22.5% - 36%", link: "https://affpa.top/L?tag=d_615665m_97c_&site=615665&ad=97&r=es/slots/", description: "1xBit je kryptoměnové casino, takže lze očekávat, že platby a provize budou v Bitcoin. Rozsah provizí je 25% až 40%, se skutečnými provizemi 23% až 36%. Vhodné pro affiliate partnery zajímající se o vydělávání bitcoinů s tímto profilem hráčů." }
               ] %}
 
               {% for program in programs %}
-                <div class="collapse collapse-arrow join-item border-b border-base-300 {% if program.featured %} ring-2  ring-blue-200 shadow-lg my-2 {% endif %}">
-                    <input type="radio" name="affiliate-program" {% if program.featured %}checked="checked"{% endif %} />
-                    <div class="collapse-title text-xl font-medium">
-                    <div class="flex items-center gap-4">
-                        <img loading="lazy" decoding="async" width="40" height="40" src="{{ program.path }}{{ program.logo }}" class="rounded-full bg-white" alt="{{ program.name }}-logo" />
-                        <div class="flex-grow">
-                        <div class="font-semibold text-base">{{ program.name }}</div>
-                        <div class="text-sm text-gray-500">
-                            {{ program.commission }}
-                            {% if program.real_commission %}
-                            <span class="italic">(Reálná: {{ program.real_commission }})</span>
-                            {% endif %}
-                        </div>
-                        </div>
+              <div class="collapse collapse-arrow join-item border-b border-base-300 {% if program.featured %} ring-2  ring-blue-200 shadow-lg my-2 {% endif %}">
+                <input type="radio" name="affiliate-program" {% if program.featured %}checked="checked"{% endif %} />
+                <div class="collapse-title text-xl font-medium">
+                  <div class="flex items-center gap-4">
+                    <img loading="lazy" decoding="async" width="40" height="40" src="{{ program.path }}{{ program.logo }}" class="rounded-full bg-white" alt="{{ program.name }}-logo" />
+                    <div class="flex-grow">
+                      <div class="font-semibold text-base">{{ program.name }}</div>
+                      <div class="text-sm text-gray-500">
+                        {{ program.commission }}
+                        {% if program.real_commission %}
+                        <span class="italic">(Real: {{ program.real_commission }})</span>
+                        {% endif %}
+                      </div>
                     </div>
-                    </div>
-                    <div class="collapse-content prose prose-sm min-w-full prose-p:my-[10px]">
+                  </div>
+                </div>
+                <div class="collapse-content prose prose-sm min-w-full prose-p:my-[10px]">
                     {% if program.featured %}
                         <div class="badge badge-primary badge-outline mb-2">Doporučené</div>
                     {% endif %}
                     {% if program.review %}
                         <a href="{{ program.review }}" class="badge badge-primary badge-outline mb-2">Blog</a>
-                    {% endif %}                    
-                    <p>{{ program.description }}</p>
-                    <a href="{{ program.link }}" rel="nofollow noopener noreferrer" target="_blank" class="btn btn-sm btn-primary text-white no-prose">
-                        {{ languages[page.lang].texts.visit }}
-                    </a>
-                    </div>
+                    {% endif %}                      
+                  <p>{{ program.description }}</p>
+                  <a href="{{ program.link }}" rel="nofollow noopener noreferrer" target="_blank" class="btn btn-sm btn-primary text-white no-prose">
+                      {{ languages[page.lang].texts.visit }}
+                  </a>
                 </div>
+              </div>
               {% endfor %}
 
             </div>
 
+            <!-- FAQ Section -->
             <div class="prose md:prose-lg min-w-full prose-p:my-[10px] mt-10">
                 <h2 id="affiliate-faq"><strong>Co je affiliate marketing?</strong></h2>
                 <p>
-                    <strong>Affiliate marketing</strong> je součástí tzv. "výkonnostního marketingu" a hraje důležitou roli v iGaming průmyslu i v dalších odvětvích, jako je maloobchod prostřednictvím programů jako <em>Amazon Associates</em>.
+                    <strong>Affiliate Marketing</strong> je součástí toho, co je známé jako „Performance Marketing", a je důležitou součástí iGaming průmyslu, stejně jako jiných odvětví, například maloobchodu prostřednictvím programů jako <em>Amazon Associates</em>.
                 </p>
                 <p>
-                    Obecně se jedná o program, kde webmaster obvykle dostává odměnu za doporučení nových zákazníků <em>online podniku</em>.<br />V případě sázení a
-                    <a href="{{ '/casinos/' | locale_url }}">online kasin</a> je to způsob, jak operátoři získávají nové hráče bez přímé investice do jejich akvizice, a nabízejí svým partnerům nebo affiliate partnerům podíl na zisku za tento úkol.
+                    Obecně se jedná o program výhod, kde webmaster obvykle dostává odměnu za doporučení nových zákazníků <em>online podniku</em>.<br />V případě sázení a
+                    <a href="{{ '/casinos/' | locale_url }}">online kasin</a>
+                    je to způsob, jakým operátoři získávají nové hráče bez přímé investice do jejich akvizice, a poskytují svým partnerům nebo affiliate podíl na ziscích za provedení tohoto úkolu.
                 </p>
                 <p>
-                    Jako v každém odvětví existují dobří a špatní hráči. Ti, kteří jednají legitimně, a ti, kteří tají informace, používají klamavé praktiky a smluvní podmínky jak pro affiliate partnery, tak pro hráče, s skrytými poplatky, affiliate manažery, kteří ve svých pozicích vydrží krátce, značkami, které mizí nebo přestávají platit, a samotnými affiliate partnery, kteří generují spam a klamavou reklamu. A také programy, které se snaží dělat svou práci férově, transparentně a udržitelně.
+                    Jako v každém odvětví, i zde jsou dobří a špatní hráči. Ti, kteří to dělají legitimně, a ti, kteří skrývají informace, s klamavými praktikami a smluvními podmínkami pro affiliate partnery i hráče, se skrytými poplatky, s affiliate managery, kteří své pozice zastávají krátce, se značkami, které mizí nebo přestávají platit, a se samotnými affiliate partnery, kteří generují spam a klamavou reklamu. A také programy, které se snaží dělat svou práci spravedlivě, transparentně a udržitelně.
                 </p>
             </div>
         </div>

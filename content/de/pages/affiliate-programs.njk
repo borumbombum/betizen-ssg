@@ -1,0 +1,124 @@
+---
+title: "Affiliate-Programme"
+description: "Die besten und schlechtesten Affiliate-Programme der Online-Glücksspielbranche."
+slugOverride: affiliate-programme
+---
+
+<div class="max-w-6xl mx-auto">
+
+    <div class="rounded-xl shadow-lg mb-8 dark:shadow-none dark:border dark:border-gray-800">
+        <div 
+          style="background-image: linear-gradient(to right, #4f46e5, #7c3aed)"
+          class="bg-red-200 h-20 relative rounded-t-lg">
+            <div class="absolute top-4 right-6">
+                <a href="{{ '/' | locale_url }}" class="bg-gray-600 text-white text-xs px-3 py-1 rounded">
+                    Startseite
+                </a>
+            </div>
+        </div>
+        
+        <div class="pt-12 pb-6 px-6">
+            <div class="flex flex-col items-start justify-between md:mb-4 prose prose-xs md:prose-lg min-w-full prose-p:my-[10px]">
+                <h1 class="!mb-2">{{ title }}</h1>
+                <h2 class="text-gray-400 !mt-0 !mb-10">{{ description }}</h2>
+            </div>
+
+            <img
+                decoding="async"
+                src="{{ metadata.images.site }}affiliate-programs.webp"
+                class="img-fluid mb-4 affiliateHeroImage rounded-lg"
+                alt="affiliate-programme"
+                width="600"
+                height="293"
+            />
+
+            <div class="prose md:prose-lg min-w-full prose-p:my-[10px] mt-4">
+                <p>
+                    Möchten Sie Ihr Casino zu Betizen hinzufügen? Sind Sie Affiliate-Manager? Lassen Sie uns zusammenarbeiten!
+                    <a
+                        target="_blank"
+                        rel="nofollow noreferrer noopener"
+                        href="https://forms.gle/vMpnv4cFgccHYNp56"
+                        onclick="gtag('event', 'click', {
+                            event_category: 'affiliate',
+                            event_label: 'add-casino-button'
+                        });"                                
+                        >Registrieren Sie Ihr Casino hier</a
+                    >.
+                </p>
+            </div>
+
+            <!-- Affiliate Programs List -->
+            <div class="join join-vertical w-full mt-10">
+              
+              {% set programs = [
+                { name: "Playamo Partners", featured: true, review: "/blog/playamo-partners-programa-afiliados/", logo: "playamo-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "16% - 29%", link: "https://media.toxtren.com/redirect.aspx?pid=101348&bid=1988&redirectURL=https://www.registeramo.com", description: "Playamo Partners hat einen langjährigen Ruf, seit vielen Jahren korrekt zu zahlen, sogar an kleine Affiliates. Sie besitzen mehrere Marken, darunter National Casino oder 20Bet, haben eine Revenue-Share-Spanne von 25 bis 45% abzüglich Verwaltungskosten und haben kein Sub-Affiliate-Programm." },
+                { name: "Groupartners", logo: "groupartners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "22.76% - 40.97%", link: "https://media.groupartners.com/redirect.aspx?pid=2341&bid=1590", description: "Groupartners ist die Marke hinter Tusk Casino. Sein Affiliate-System ist Netrefer und hat eine Werbespanne von 25-45% Revenue Share und eine tatsächliche von 23-41%." },
+                { name: "Betwinner Affiliates", logo: "betwinner-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", link: "https://bwredir.com/1t7Y?p=%2Fregistration%3FreturnUrl%3D%2Fslots", description: "Das Betwinner-Affiliate-Programm hat einen negativen Übertrag, wenn wir wöchentliche Zahlungen einrichten, und überträgt keine Verluste, wenn wir monatliche Zahlungen einrichten. Der Mindestgewinn für eine Auszahlung beträgt 30 $." },
+                { name: "FastPay Affiliates", logo: "fastpay-affiliates.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "18% - 33%", link: "https://fastpay-go.com/ae1864538", description: "Fastpay hat ein Multi-Marken-Affiliate-Programm mit einer Rev-Share-Spanne von 25% bis 45% und einer Cookie-Laufzeit von 30 Tagen." },
+                { name: "Dafabet Afiliados", logo: "dafabet-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "30% - 40%", link: "https://banners.dfbanners.com/redirect.aspx?pid=57566&bid=18468", description: "Dafabet ist ein Online-Casino aus Asien, das fast alle möglichen Vertikalen bietet, von Sportwetten bis hin zu Casino und Poker. Mit Sitz auf den Philippinen, wo es reguliert wird, ist Dafabet eine expandierende Marke mit Provisionen von bis zu 30%." },
+                { name: "Total Affiliates", logo: "total-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "30% - 30%", link: "https://link.totalaffiliates.com/c/452287", description: "Total Affiliates ist das Affiliate-Programm von Casinos wie Black Diamond Casino mit einem festen Provisionsprozentsatz von 30%, dessen tatsächlicher Wert jedoch unbekannt ist. Es hat keinen negativen Übertrag und eine Mindestauszahlung von 50 $ (mit Ausnahme von Scheck- und Bitcoin-Zahlungen)." },
+                { name: "Rivalo Partners", logo: "rivalo-partners.webp", path: metadata.images.affiliatePrograms, commission: "20% - 40%", link: "https://rec.rivalo.com/_BVfiJm57JnoxoCT0MZ3VnmNd7ZgqdRLk/1/", description: "Offiziell ist nicht viel über das Affiliate-Programm von Rivalo bekannt, das theoretisch einen Rev-Share von 20% bis 40% bietet. Dieses Programm wurde nicht geprüft." },
+                { name: "JVSpin Partners", logo: "jvspin-logo.webp", path: metadata.images.casinos, commission: "30% - 50%", link: "https://jvsbet.com//L?tag=d_1298587m_43701c_&site=1298587&ad=43701&r=es/slots/", description: "JVSpin Partners ist das Affiliate-Programm des Casinos JVSpin, einer Marke, die die proprietäre Software von 1xBet verwendet. Obwohl es angibt, keine Admin-Gebühren zu haben, wird akzeptiert, dass es 15% Verwaltungsprovisionen berechnet. Die progressive Vergütung reicht von 30 bis 50% je nach Anzahl der geworbenen Kunden." },
+                { name: "JimPartners", logo: "jimpartners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "12% - 21.6%", link: "https://jimpartners.com/user/sign-in/signup?ref_id=2838", description: "Jim Partners ist das Affiliate-Programm für Casinos wie Slottica oder AllRight und bekannt für einige der räuberischsten und ungünstigsten Verwaltungsgebühren und -bedingungen der Branche, die bis zu 40% Provision auf die Gewinne ihrer Affiliates verlangen." },
+                { name: "Hola Partners", logo: "hola-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "15% - 27%", link: "https://wlholapartners.adsrv.eacdn.com/PPC.ashx?btag=a_923b_87c_&affid=151&siteid=923&adid=87&c=&channelid=1&MediaID=85&m=2|2&g=https%3a%2f%2fluckyelektra.com%2fes%2f%3fbtag%3da_923b_87c_%5baid%5d", description: "Hola Partners ist das Affiliate-Programm des Lucky Elektra Casinos (mit einem innovativen und interessanten Design). Sie haben keine Sub-Affiliation und laut Affiliate Guard Dog einen sehr schlechten tatsächlichen Revenue Share mit hohen Verwaltungsprovisionen." },
+                { name: "Gamesys Group", logo: "gamesys-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", link: "https://record.ppincome.net/_FJLgBR3akX4k_N3SoNXZh2Nd7ZgqdRLk/1/", description: "Früher bekannt als JPJ Group Affiliates, ist Gamesys das Affiliate-Programm wichtiger Marken im Casino- und Bingo-Markt wie Vera&John oder Botemanía." },
+                { name: "Buffalo Partners", logo: "buffalo-partners-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "23% - 40%", link: "https://www.buffalopartners.com/?s=bfp22546", description: "Buffalo Partners ist ein Casino-Affiliate-Programm mit über 15 Jahren Branchenerfahrung. Deshalb hat es jedoch eine Aktivitätsrate (Bedingungen für die Gewinnprozentsätze)." },
+                { name: "Btag Media", logo: "btag-media-logo.webp", path: metadata.images.affiliatePrograms, commission: "20% - 40%", link: "https://partners.btagmedia.com/scripts/3vcn0h4?btagid=19569217&amp;bid=fff428ed", description: "BTagMedia ist ein Meta-Affiliate-Programm, das Casinos wie Bet4Joy, EvoBet, Betway oder Brazino 777 unter Dutzenden anderen umfasst, mit Provisionen von 20% bis 40%." },
+                { name: "Betchain Affiliates", logo: "betchain-logo.webp", path: metadata.images.casinos, commission: "25% - 45%", real_commission: "25% - 40.5%", link: "https://betchainmedia.com/a9ab8ab54", description: "Mit hohen Provisionen und niedrigen (oder keinen) Verwaltungsgebühren ist Betchain Affiliates das Programm des Betchain Casinos, das zu halten scheint, was es verspricht. Kein negativer Übertrag." },
+                { name: "Alpha Affiliates", logo: "alpha-affiliates-logo.webp", path: metadata.images.affiliatePrograms, commission: "25% - 45%", real_commission: "17.5% - 31.5%", link: "https://partners.alpha-affiliates.com/#/affiliate_ref/1fd6e0ccf279e24bdb7b3642ab5c6655", description: "Alpha Affiliates ist ein als zuverlässig geltendes Programm, das seit 2012 in der Glücksspielbranche tätig ist, Angebote von bis zu 40-50% ohne negativen Übertrag und mit effektiven Gewinnmargen zwischen 17% und 31%." },
+                { name: "1xBit Partners", logo: "1xbit-partners.webp", path: metadata.images.affiliatePrograms, commission: "25% - 40%", real_commission: "22.5% - 36%", link: "https://affpa.top/L?tag=d_615665m_97c_&site=615665&ad=97&r=es/slots/", description: "1xBit ist ein Kryptowährungs-Casino, daher ist zu erwarten, dass Zahlungen und Provisionen in Bitcoin erfolgen. Die Provisionsspanne reicht von 25% bis 40%, mit tatsächlichen Provisionen von 23% bis 36%. Geeignet für Affiliates, die daran interessiert sind, Bitcoin zu verdienen, mit diesem Spielerprofil." }
+              ] %}
+
+              {% for program in programs %}
+              <div class="collapse collapse-arrow join-item border-b border-base-300 {% if program.featured %} ring-2  ring-blue-200 shadow-lg my-2 {% endif %}">
+                <input type="radio" name="affiliate-program" {% if program.featured %}checked="checked"{% endif %} />
+                <div class="collapse-title text-xl font-medium">
+                  <div class="flex items-center gap-4">
+                    <img loading="lazy" decoding="async" width="40" height="40" src="{{ program.path }}{{ program.logo }}" class="rounded-full bg-white" alt="{{ program.name }}-logo" />
+                    <div class="flex-grow">
+                      <div class="font-semibold text-base">{{ program.name }}</div>
+                      <div class="text-sm text-gray-500">
+                        {{ program.commission }}
+                        {% if program.real_commission %}
+                        <span class="italic">(Real: {{ program.real_commission }})</span>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="collapse-content prose prose-sm min-w-full prose-p:my-[10px]">
+                    {% if program.featured %}
+                        <div class="badge badge-primary badge-outline mb-2">Empfohlen</div>
+                    {% endif %}
+                    {% if program.review %}
+                        <a href="{{ program.review }}" class="badge badge-primary badge-outline mb-2">Blog</a>
+                    {% endif %}                      
+                  <p>{{ program.description }}</p>
+                  <a href="{{ program.link }}" rel="nofollow noopener noreferrer" target="_blank" class="btn btn-sm btn-primary text-white no-prose">
+                      {{ languages[page.lang].texts.visit }}
+                  </a>
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="prose md:prose-lg min-w-full prose-p:my-[10px] mt-10">
+                <h2 id="affiliate-faq"><strong>Was ist Affiliate-Marketing?</strong></h2>
+                <p>
+                    <strong>Affiliate-Marketing</strong> ist Teil des sogenannten „Performance-Marketings" und ist ein wichtiger Bestandteil der iGaming-Branche sowie anderer Branchen, wie zum Beispiel des Einzelhandels über Programme wie <em>Amazon Associates</em>.
+                </p>
+                <p>
+                    Im Allgemeinen handelt es sich um ein Vergütungsprogramm, bei dem ein Webmaster in der Regel eine Vergütung für die Vermittlung neuer Kunden an ein <em>Online-Geschäft</em> erhält.<br />Im Falle von Wetten und
+                    <a href="{{ '/casinos/' | locale_url }}">Online-Casinos</a>
+                    ist es eine Möglichkeit für Betreiber, neue Spieler zu gewinnen, ohne direkt in deren Akquise zu investieren, und ihren Partnern oder Affiliates einen Teil der Gewinne für diese Aufgabe zu gewähren.
+                </p>
+                <p>
+                    Wie in jeder Branche gibt es gute und schlechte Akteure. Diejenigen, die es legitim machen, und diejenigen, die Informationen verbergen, mit irreführenden Praktiken und Allgemeinen Geschäftsbedingungen sowohl für Affiliates als auch für Spieler, mit versteckten Gebühren, Affiliate-Managern, die ihre Positionen nur kurz innehaben, Marken, die verschwinden oder nicht mehr zahlen, und Affiliates selbst, die Spam und irreführende Werbung generieren. Aber es gibt auch Programme, die versuchen, ihre Arbeit fair, transparent und nachhaltig zu gestalten.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
