@@ -161,10 +161,13 @@
     </div>  
 
 
-    
-</div>
+    </div>
 
-<script>
+{% if config.showGlobalSearch %}
+  {%- include "components/global-search.njk" %}
+{% endif %}
+
+    <script>
 
     // Simple nested carousel
     let currentSlide = 0;

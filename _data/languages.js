@@ -195,6 +195,8 @@ module.exports = {
       },
       protectingPlayersSince:
         "Protegiendo a los jugadores con tecnología transparente desde 2018",
+      searchBrands: "Buscar todas las marcas...",
+      searchNoResults: "Ninguna marca coincide con tu búsqueda",
       latestGames: "Los últimos juegos",
       latestGamesTeaser:
         "¡Los últimos slots, bingos y juegos de mesa lanzados al mercado!",
@@ -500,6 +502,8 @@ module.exports = {
       },
       protectingPlayersSince:
         "Protegendo os jogadores com tecnologia transparente desde 2018",
+      searchBrands: "Pesquisar todas as marcas...",
+      searchNoResults: "Nenhuma marca corresponde à sua pesquisa",
       latestGames: "Os últimos jogos",
       latestGamesTeaser:
         "As últimas slots, bingos e jogos de mesa lançados no mercado!",
@@ -781,6 +785,8 @@ module.exports = {
       },
       protectingPlayersSince:
         "Protecting players with transparent technology since 2018",
+      searchBrands: "Search all brands...",
+      searchNoResults: "No brands match your search",
       latestGames: "Latest Games",
       latestGamesTeaser:
         "The latest slots, bingos and table games launched on the market!",

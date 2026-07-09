@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (window.BZ?.voting) window.BZ.voting.init();
   if (window.BZ?.cms) window.BZ.cms.init();
   if (window.BZ?.leaderboard) window.BZ.leaderboard.init();
+  if (window.BZ?.globalSearch) window.BZ.globalSearch.init();
 
   // Event delegation events for buttons and actions (supports multiple buttons)
   document.addEventListener("click", (e) => {
@@ -155,6 +156,26 @@ document.addEventListener("DOMContentLoaded", async () => {
           true,
           false
         );
+      }
+    }
+  });
+
+  // Handle global search modal
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("#global-search-modal-trigger")) {
+      e.preventDefault();
+      if (window.BZ?.globalSearch?.openModal) {
+        window.BZ.globalSearch.openModal();
+      }
+    }
+  });
+
+  // Keyboard shortcut: Cmd+K / Ctrl+K to open global search modal
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      if (window.BZ?.globalSearch?.openModal) {
+        window.BZ.globalSearch.openModal();
       }
     }
   });

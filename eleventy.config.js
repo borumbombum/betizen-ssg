@@ -191,6 +191,23 @@ module.exports = function (eleventyConfig) {
     });
   });
 
+  /**
+   * Create a collection of featured brands (casinos, forex, binaries)
+   */
+  eleventyConfig.addCollection("featuredBrands", function (collectionApi) {
+    var items = [];
+    collectionApi.getFilteredByTag("casinos").forEach(function (item) {
+      if (item.data.featured === true) items.push(item);
+    });
+    collectionApi.getFilteredByTag("forex").forEach(function (item) {
+      if (item.data.featured === true) items.push(item);
+    });
+    collectionApi.getFilteredByTag("binaries").forEach(function (item) {
+      if (item.data.featured === true) items.push(item);
+    });
+    return items;
+  });
+
   // Customize Markdown library settings:
   eleventyConfig.amendLibrary("md", (mdLib) => {
     mdLib.use(markdownItAnchor, {

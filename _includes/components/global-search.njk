@@ -1,0 +1,20 @@
+<div class="border-b border-base-300 dark:border-gray-700 px-4 md:px-0 md:relative md:-top-2">
+  <div class="max-w-6xl mx-auto py-3 md:py-4">
+    <div class="relative">
+      <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 size-5 text-base-content/40 pointer-events-none"></i>
+      <input
+        id="global-search-input"
+        type="search"
+        placeholder="{{ languages[page.lang].texts.searchBrands | default('Search all brands...') }}"
+        class="input w-full bg-base-100 pl-10 pr-4 text-base md:text-lg border-2 border-base-content/30"
+        autocomplete="off"
+      />
+      <kbd class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-base-content/40 pointer-events-none hidden md:inline-flex items-center gap-0.5 border border-base-content/20 rounded px-1.5 py-0.5 font-mono">⌘K</kbd>
+      <div
+        id="global-search-results"
+        data-no-results="{{ languages[page.lang].texts.searchNoResults | default('No brands found') }}"
+        class="hidden absolute left-0 right-0 top-full mt-2 bg-base-100 border border-base-300 dark:border-gray-700 rounded-box shadow-xl z-[60] max-h-96 overflow-y-auto"
+      ></div>
+    </div>
+  </div>
+</div>

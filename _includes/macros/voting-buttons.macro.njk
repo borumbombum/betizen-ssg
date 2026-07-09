@@ -8,7 +8,7 @@
         aria-label="Vote up"
     >
         <i data-lucide="heart" class="heart-icon w-6 h-6 md:w-7 md:h-7"></i>
-        <span class="heart-label hidden md:inline text-xs opacity-60 whitespace-nowrap"
+        <span class="heart-label {% if smallOnMobile %}hidden md:inline{% else %}inline{% endif %} text-xs opacity-60 whitespace-nowrap"
               data-voted-text="{{ languages[page.lang].texts.heartVotedLabel }}"
               data-again-text="{{ languages[page.lang].texts.heartVoteAgainLabel }}">
           {{ languages[page.lang].texts.heartVoteLabel }}

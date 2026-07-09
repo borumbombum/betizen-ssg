@@ -56,14 +56,14 @@
         <link rel="dns-prefetch" href="//cdnjs.cloudflare.com/" />
 
         {# Tailwind / DaisyUI #}
-        <link rel="stylesheet" href="{{ '/assets/app.css?v=20260204' | url }}">
+        <link rel="stylesheet" href="{{ ('/assets/app.css?v=' + config.version) | url }}">
 
         {# Flickity  #}
         {# <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css"> #}
         {#  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script> #}
 
-        <link rel="stylesheet" href="/assets/css/flickity.min.css" />
-        <script src="/assets/js/flickity.pkgd.min.js"></script>
+        <link rel="stylesheet" href="/assets/css/flickity.min.css?v={{ config.version }}" />
+        <script src="/assets/js/flickity.pkgd.min.js?v={{ config.version }}"></script>
 
         {# Google Re-Captcha #}
         {# <script src="https://www.google.com/recaptcha/api.js?render=6Lf3dYgsAAAAANNIN3gtVLGP0VMIjKIsWoVZ1iiG"></script> #}
@@ -107,6 +107,9 @@
             {% include "public/js/modules/toast.js" %}
             {% include "public/js/modules/casino-search.js" %}
             {% include "public/js/modules/leaderboard.js" %}
+            {% if config.showGlobalSearch %}
+              {% include "public/js/modules/global-search.js" %}
+            {% endif %}
 
             {% include "public/js/app.js" %}
         {% endjs %}
@@ -119,9 +122,7 @@
         {#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
         {# <link rel="stylesheet" href="/{% getBundleFileUrl "css" %}"> #}
 
-        <script>
-            {% getBundle "js" %}
-        </script>
+        <script src="{% getBundleFileUrl "js" %}"></script>
         {# <script src="{% getBundleFileUrl "js" %}"></script> #}
 
         {# Schema #}
@@ -143,7 +144,26 @@
         <script type="text/javascript">window.onload = new function(){var hd = document.getElementsByTagName('head').item(0);var js = document.createElement('script'); js.setAttribute('language', 'javascript'); js.setAttribute('src', 'https://certify.gpwa.org/script/betizen.org/'); hd.appendChild(js); return false;}</script>
 
         {%- include "components/bz-message.njk" %}
+
+        {% if config.showGlobalSearch %}
+        <template id="gs-featured-template">
+          <div class="font-medium text-xs text-base-content/60 mb-2 px-1">{{ languages[page.lang].texts.featured }}</div>
+          <div class="grid grid-cols-3 gap-2">
+            {% set featuredBrands = collections.featuredBrands | forLang(page.lang) | sortByOrder | head(6) %}
+            {% for item in featuredBrands %}
+            <a href="{{ item.url }}" class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-base-200 transition-colors text-center">
+              <div class="size-10 rounded-full overflow-hidden bg-neutral text-neutral-content">
+                <img src="{{ metadata.images.casinos }}{{ item.fileSlug }}-logo.webp" alt="{{ item.data.title }}" class="w-full h-full object-cover" loading="lazy" onerror="this.style.display='none'" />
+              </div>
+              <span class="text-xs font-medium truncate w-full">{{ item.data.title }}</span>
+            </a>
+            {% endfor %}
+          </div>
+        </template>
+        {% endif %}
+
         {%- include "components/bz-nav.njk" %}
+
         {%- include "components/earning-karma-modal.njk" %}
 
         <main id="main">

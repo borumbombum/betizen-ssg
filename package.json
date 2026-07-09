@@ -1,19 +1,20 @@
 {
   "name": "betizen-ssg",
-  "version": "2.1.25",
+  "version": "2.1.27",
   "description": "Reliable listings of online casinos, games, bonuses and affiliate programs, without scams!",
   "scripts": {
     "build": "NODE_ENV=prod NODE_OPTIONS=--max_old_space_size=5012 npm-run-all clean-build build:* minify:*",
     "build:css": "npx @tailwindcss/cli -i ./public/css/app.css -o ./_site/assets/app.css --minify",
     "build:11ty": "eleventy",
-    "dev": "NODE_ENV=dev NODE_OPTIONS=--max_old_space_size=5012 npm-run-all clean-build --parallel watch:*",
+    "dev": "NODE_ENV=dev NODE_OPTIONS=--max_old_space_size=5012 npm-run-all clean-build build:css --parallel watch:*",
     "watch:css": "npx @tailwindcss/cli -i ./public/css/app.css -o ./_site/assets/app.css --watch",
     "watch:11ty": "eleventy --serve --watch --quiet",
     "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
     "debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
     "benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy",
     "clean-build": "rimraf _site",
-    "minify:html": "html-minifier-terser --input-dir _site --output-dir _site --file-ext html --minify-js --minify-css --remove-comments --collapse-whitespace"
+    "minify:html": "html-minifier-terser --input-dir _site --output-dir _site --file-ext html --minify-js --minify-css --remove-comments --collapse-whitespace",
+    "preview": "npx serve _site"
   },
   "author": {
     "name": "Nicolas",

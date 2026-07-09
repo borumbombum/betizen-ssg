@@ -22,5 +22,6 @@ module.exports = {
   },
 
   showHomeBanner: true,
+  showGlobalSearch: true,
   theme: "cmyk",
 };
