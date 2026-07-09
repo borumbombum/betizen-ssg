@@ -154,14 +154,11 @@ window.BZ.auth = {
   //   },
 
   async loginWithNostr() {
-    if (!window.nostr) {
-      showToast("Please install a Nostr extension like nos2x or Alby.", "error");
-      return;
-    }
+    const btn = document.getElementById("nostr-login-btn");
+    if (btn?.disabled) return;
+    if (btn) btn.disabled = true;
 
     try {
-      window.BZ.state.set("ui.loading", true);
-
       const challengeRes = await window.BZ.api.auth.getNostrChallenge();
       const challenge = challengeRes.data.challenge;
 
@@ -172,6 +169,7 @@ window.BZ.auth = {
         created_at: Math.floor(Date.now() / 1000),
       });
 
+      window.BZ.state.set("ui.loading", true);
       const apiResponse = await window.BZ.api.auth.loginWithNostr({
         signed_event: JSON.stringify(signedEvent),
         challenge,
@@ -191,9 +189,11 @@ window.BZ.auth = {
 
       document.getElementById("bz_modal_1")?.close();
     } catch (error) {
+      console.error("Nostr login error:", error);
       showToast("Nostr login failed", "error");
     } finally {
       window.BZ.state.set("ui.loading", false);
+      if (btn) btn.disabled = false;
     }
   },
 
