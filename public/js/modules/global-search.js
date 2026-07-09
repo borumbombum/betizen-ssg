@@ -6,14 +6,14 @@ window.BZ.globalSearch = {
   selectedIndex: -1,
 
   init() {
-    const input = document.getElementById("global-search-input");
-    const results = document.getElementById("global-search-results");
-    if (!input || !results) return;
-
     fetch("/assets/data/brands-" + window.currentLang + ".json")
       .then(function (r) { return r.json(); })
       .then(function (data) { window.BZ.globalSearch.data = data; })
-      .catch(function () { console.warn("Global search data unavailable"); });
+      .catch(function (err) { console.warn("Global search data unavailable:", err); });
+
+    const input = document.getElementById("global-search-input");
+    const results = document.getElementById("global-search-results");
+    if (!input || !results) return;
 
     input.addEventListener("input", function (e) {
       window.BZ.globalSearch.handleInput(e.target.value);
