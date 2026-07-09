@@ -13,6 +13,7 @@ window.BZ.voting = {
     document.addEventListener("click", (e) => {
       const visitBtn = e.target.closest("[data-earnurl]");
       if (visitBtn) {
+        e.preventDefault();
         this.handleEarnKarma(visitBtn);
       }
     });

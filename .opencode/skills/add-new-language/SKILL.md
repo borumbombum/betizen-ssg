@@ -8,8 +8,8 @@ description: Complete workflow for adding a new language to the Betizen SSG, fro
 Adding a new language involves:
 
 1. **Flag setup** — ensure the country flag SVG exists
-2. **Data layer** — add translations and navigation in `_data/` files
-3. **Content scaffolding** — create `/content/{lang}/` directory with `.11tydata.js`
+2. **Data layer** — add translations in `_data/l10n/` and navigation in `_data/nav.js`
+3. **Content scaffolding** — create `/content/{lang}/` directory with `.11tydata.js` files
 4. **Translate a starter casino** — e.g., 1xBet, to validate the setup
 5. **Build and verify**
 
@@ -47,10 +47,10 @@ There are two patterns based on whether the language is the **default** or not:
 | Aspect | Default (`es`) | Non-default (`en`, `pt-br`, new `{lang}`) |
 |--------|---------------|-------------------------------------------|
 | Homepage URL | `/` | `/{url_prefix}/` |
-| Casino URL | `/casino/{slug}/` | `/{url_prefix}/casino-slug/{slug}/` |
-| Casino list | `/casinos/` | `/{url_prefix}/casino-list-slug/` |
+| Casino URL | `/casino/{slug}/` | `/{url_prefix}/{casino_slug}/{slug}/` |
+| Casino list | `/casinos/` | `/{url_prefix}/{casino_list_slug}/` |
 | `locale_links` | Links from default | Links TO default and others |
-| `{lang}.11tydata.js` permalink | `/${slug}/` | `/${data.lang}/{slug}/` |
+| `.11tydata.js` permalink | `/{slug}/` | `LANG + "/{section}/" + this.slugify(data.slugOverride) + "/"` |
 
 This is controlled by `eleventy.config.js`:
 
@@ -73,27 +73,29 @@ ls public/imgs/flags/svg/{flag_path}
 cp public/imgs/flags/svg/un.svg public/imgs/flags/svg/{flag_path}
 ```
 
-### Step 2: Add language data to `_data/languages.js`
+### Step 2: Create `_data/l10n/{lang}.js`
 
-Add a new block keyed by `{lang}` (modeled on the `en` block). All values must be translated:
+This is the centralized translation file. Model it on `_data/l10n/en.js` or `_data/l10n/cs.js`. All strings must be translated:
 
 ```js
-{lang}: {
+const metadata = require("../metadata.js");
+
+module.exports = {
   footerNav: {
-    blog: { name: "Blog", slug: "/{url_prefix}/blog/" },
-    games: { name: "{translated_games_name}", slug: "/{url_prefix}/{games_slug}/" },
+    blog: { name: "{translated_blog}", slug: "/{url_prefix}/{blog_list_slug}/" },
+    games: { name: "{translated_games}", slug: "/{url_prefix}/{games_list_slug}/" },
   },
-  dir: "",  // empty = LTR, use "rtl" for Arabic/Hebrew
   menu: {
     name: "{lang_name}",
-    flagClass: "flag-icon-{lang}",
+    flagClass: "flag-icon-{flag_code}",
+    flagSvg: "/assets/imgs/flags/svg/{flag_path}",
   },
   top: {
     text: "{translated_add_site_text}",
     url: "https://forms.gle/vMpnv4cFgccHYNp56",
   },
   promo: {
-    // Copy from EN initially — banners, CTAs, casino promos
+    // Copy from existing language — banners, CTAs, casino promos
     // Translate CTA text, update image references if language-specific banners exist
   },
   categories: {
@@ -105,15 +107,34 @@ Add a new block keyed by `{lang}` (modeled on the `en` block). All values must b
     baccarat: { name: "{translated_baccarat}", url: "/{url_prefix}/{games_slug}/{baccarat_slug}/" },
     poker: { name: "{translated_video_poker}", url: "/{url_prefix}/{games_slug}/{poker_slug}/" },
   },
-  texts: { ... },  // all ~150 translatable strings
-}
+  texts: {
+    // All ~150 translatable strings — copy all keys from an existing l10n file
+    // Common keys: readMore, visit, bonus, login, logout, search, reputation, karma,
+    //   voting, reputation.fair, reputation.acceptable, reputation.caution, reputation.dangerous,
+    //   slogan.firstLine, slogan.secondLine, etc.
+  },
+};
 ```
 
-**Required sub-fields in `texts`:** All keys present in `en.texts` must exist. Missing keys will cause rendering errors. Common ones: `readMore`, `visit`, `bonus`, `login`, `logout`, `search`, `reputation`, `karma`, `voting`, etc.
+**Critical:** All keys present in other `_data/l10n/{lang}.js` files must exist. Missing keys will cause rendering errors. The `texts` object should be a complete copy — translate string values, keep boilerplate/technical content unchanged.
 
-**Copy-paste tip:** Duplicate the `en` block, then translate each string value. Leave technical fields unchanged (e.g., `promo.url`, image paths).
+**Copy-paste tip:** Duplicate an existing `_data/l10n/{lang}.js` file, then translate each string value. Leave technical fields unchanged (e.g., `promo.url`, image paths).
 
-### Step 3: Add navigation to `_data/nav.js`
+### Step 3: Register in `_data/languages.js`
+
+Add a require line for the new language:
+
+```js
+module.exports = {
+  es: require("./l10n/es.js"),
+  "pt-br": require("./l10n/pt-br.js"),
+  en: require("./l10n/en.js"),
+  cs: require("./l10n/cs.js"),
+  "{lang}": require("./l10n/{lang}.js"),
+};
+```
+
+### Step 4: Add navigation to `_data/nav.js`
 
 ```js
 {lang}: [
@@ -126,7 +147,7 @@ Add a new block keyed by `{lang}` (modeled on the `en` block). All values must b
 
 The `id` field must match existing IDs from other languages.
 
-### Step 4: Categories auto-populate
+### Step 5: Categories auto-populate
 
 `_data/categories.js` reads from `languages.js` automatically. Add a new entry:
 
@@ -141,7 +162,7 @@ module.exports = function () {
 };
 ```
 
-### Step 5: Fix hardcoded flag images
+### Step 6: Update flag SVG hardcodes
 
 The flag SVG mapping is currently hardcoded as `if/elif/else` in **3 template files**:
 
@@ -170,17 +191,7 @@ Each has a pattern like:
   <img src="/assets/imgs/flags/svg/{flag_path}" ... />
 ```
 
-**Recommended approach — refactor to data-driven:** Add a `flagSvg` field to each language entry in `_data/languages.js`:
-
-```js
-menu: {
-  name: "{lang_name}",
-  flagClass: "flag-icon-{lang}",
-  flagSvg: "/assets/imgs/flags/svg/{flag_path}",
-},
-```
-
-Then all 3 templates simplify to a single line:
+**Recommended approach — refactor to data-driven:** Since you already added `flagSvg` to `_data/l10n/{lang}.js` in Step 2, all 3 templates can be simplified to a single line:
 
 ```njk
 <img src="{{ languages[link.lang].menu.flagSvg }}" class="..." alt="{{ languages[link.lang].menu.name }}" />
@@ -188,67 +199,75 @@ Then all 3 templates simplify to a single line:
 
 This makes all future language additions pure data changes — no template edits needed.
 
-### Step 6: Create language content directory
+### Step 7: Create language content directory
 
-Create `content/{lang}/` with the following minimum files:
+Create `content/{lang}/` with the following files and subdirectories:
 
-**`{lang}.11tydata.js`** (root directory data):
+**`{lang}.11tydata.js`** (root directory data — uses closure pattern):
 
 ```js
-module.exports = {
-  lang: "{lang}",
-  layout: "layouts/base.njk",
-  permalink: function (data) {
-    if (data.slugOverride) {
-      return `/${data.lang}/${this.slugify(data.slugOverride)}/`;
-    }
-  },
+module.exports = function () {
+  var LANG = "{lang}";
+  return {
+    lang: LANG,
+    layout: "layouts/base.njk",
+    permalink: function (data) {
+      if (data.slugOverride) {
+        return "/" + LANG + "/" + this.slugify(data.slugOverride) + "/";
+      }
+    },
+  };
 };
 ```
 
-**`index.njk`** (home page — translate from `en/index.njk`):
+**`index.njk`** (home page — translate from existing language):
 
 ```markdown
 ---
-title: "Extreme transparency: karma, merit & proof-of-work"
+title: "{translated_title}"
 layout: layouts/home.njk
 ---
 ```
 
-**`casinos/casinos.11tydata.js`** (casino directory data):
+#### Subdirectory: `casinos/`
+
+**`casinos/casinos.11tydata.js`** (casino directory data — uses closure pattern):
 
 ```js
 const metadata = require("../../../_data/metadata.js");
 const languages = require("../../../_data/languages.js");
-module.exports = {
-  lang: "{lang}",
-  tags: ["casinos"],
-  layout: "layouts/single-casino.njk",
-  permalink: function (data) {
-    if (data.slugOverride) {
-      return `${data.lang}/{casino_slug}/${this.slugify(data.slugOverride)}/`;
-    }
-  },
-  eleventyComputed: {
-    pageTitle: (data) => {
-      return data.title + " | {review_label} - " + metadata.title;
+module.exports = function () {
+  var LANG = "{lang}";
+  return {
+    lang: LANG,
+    tags: ["casinos"],
+    layout: "layouts/single-casino.njk",
+    permalink: function (data) {
+      if (data.slugOverride) {
+        return LANG + "/{casino_slug}/" + this.slugify(data.slugOverride) + "/";
+      }
     },
-    bonus: {
-      link: (data) => {
-        if (!data.bonus.link && data.page.lang) {
-          return languages[data.page.lang].promo.url;
-        } else {
-          return data.bonus.link;
-        }
+    eleventyComputed: {
+      pageTitle: (data) => {
+        return data.title + " | {review_label} - " + metadata.title;
+      },
+      bonus: {
+        link: (data) => {
+          if (!data.bonus.link && data.page.lang) {
+            return languages[data.page.lang].promo.url;
+          } else {
+            return data.bonus.link;
+          }
+        },
       },
     },
-  },
+  };
 };
 ```
 
-Where `{casino_slug}` is the URL path segment for casino details (e.g., `online-casino` for EN, `cassino` for PT-BR) and `{review_label}` is "Honest review" in the target language.
+Where `{casino_slug}` is the URL path segment for casino details (e.g., `online-casino` for EN, `cassino` for PT-BR, `online-kasino` for CS) and `{review_label}` is "Honest review" in the target language.
 
-**`casinos/casinos.njk`** (casino listing page — translate from `es/casinos/casinos.njk` or `en/casinos/casinos.njk`):
+**`casinos/casinos.njk`** (casino listing page — uses **explicit permalink**, not slugOverride):
 
 ```markdown
 ---
@@ -256,25 +275,158 @@ title: "{translated_title}"
 description: "{translated_description}"
 permalink: /{url_prefix}/{casino_list_slug}/
 eleventyComputed:
-  pageTitle: "{translated_page_title} - {{metadata.title}}"
+    pageTitle: "{translated_page_title} - {{metadata.title}}"
 layout: layouts/casinos.njk
 ---
 ```
 
 Where `{casino_list_slug}` is the listing page slug (e.g., `online-casinos` for EN, `cassinos` for PT-BR).
 
-**`casinos/blacklisted.njk`** (blacklist page):
+**`casinos/blacklisted.njk`** (blacklist page — uses **explicit permalink**, layout is `layouts/base.njk`):
 
 ```markdown
 ---
-title: "Blacklisted Casinos"
+title: "{translated_title}"
 description: "{translated_description}"
-permalink: /{url_prefix}/{casino_list_slug}/blacklist/
-layout: layouts/casinos.njk
+layout: "layouts/base.njk"
+permalink: "/{url_prefix}/{casino_list_slug}/blacklist/"
 ---
 ```
 
-### Step 7: Translate a starter casino (1xBet reference)
+#### Subdirectory: `pages/`
+
+**`pages/pages.11tydata.js`** (static pages — uses closure pattern):
+
+```js
+module.exports = function () {
+  var LANG = "{lang}";
+  return {
+    lang: LANG,
+    tags: ["page"],
+    layout: "layouts/page.njk",
+    permalink: function (data) {
+      if (data.slugOverride) {
+        return LANG + "/" + this.slugify(data.slugOverride) + "/";
+      }
+    },
+  };
+};
+```
+
+Create individual pages: `about.njk`, `benefits.njk` (slugOverride: `vyhody`), `glossary.njk`, `leaderboard.njk`, `affiliate-programs.njk`, `bonus.njk`, `transparency.njk`, etc.
+
+#### Subdirectory: `blog/`
+
+**`blog/blog.11tydata.js`** (blog posts — uses closure pattern):
+
+```js
+module.exports = function () {
+  var LANG = "{lang}";
+  return {
+    lang: LANG,
+    tags: ["posts"],
+    layout: "layouts/single-post.njk",
+    permalink: function (data) {
+      if (data.slugOverride) {
+        return LANG + "/{blog_slug}/" + this.slugify(data.slugOverride) + "/";
+      }
+    },
+  };
+};
+```
+
+Where `{blog_slug}` is the URL path segment for blog (e.g., `blog` for EN, `clanky` for CS).
+
+**`blog/archive.njk`** (blog listing page — uses explicit permalink):
+
+```markdown
+---
+title: "{translated_title}"
+description: "{translated_description}"
+permalink: /{url_prefix}/{blog_list_slug}/
+eleventyComputed:
+    pageTitle: "{translated_page_title} - {{metadata.title}}"
+layout: layouts/blog.njk
+---
+```
+
+#### Subdirectory: `forex/`
+
+**`forex/forex.11tydata.js`** (forex brokers — uses closure pattern):
+
+```js
+const metadata = require("../../../_data/metadata.js");
+const languages = require("../../../_data/languages.js");
+module.exports = function () {
+  var LANG = "{lang}";
+  return {
+    lang: LANG,
+    tags: ["forex"],
+    layout: "layouts/single-forex.njk",
+    permalink: function (data) {
+      if (data.slugOverride) {
+        return LANG + "/forex/" + this.slugify(data.slugOverride) + "/";
+      }
+    },
+    eleventyComputed: {
+      pageTitle: (data) => {
+        return data.title + " | {review_label} - " + metadata.title;
+      },
+      bonus: {
+        link: (data) => {
+          if (!data.bonus.link && data.page.lang) {
+            return languages[data.page.lang].promo.url;
+          } else {
+            return data.bonus.link;
+          }
+        },
+      },
+    },
+  };
+};
+```
+
+#### Subdirectory: `binaries/`
+
+**`binaries/binaries.11tydata.js`** (binary options — uses closure pattern):
+
+```js
+const metadata = require("../../../_data/metadata.js");
+const languages = require("../../../_data/languages.js");
+module.exports = function () {
+  var LANG = "{lang}";
+  return {
+    lang: LANG,
+    tags: ["binaries"],
+    layout: "layouts/single-binary.njk",
+    permalink: function (data) {
+      if (data.slugOverride) {
+        return LANG + "/{binary_slug}/" + this.slugify(data.slugOverride) + "/";
+      }
+    },
+    eleventyComputed: {
+      pageTitle: (data) => {
+        return data.title + " | {review_label} - " + metadata.title;
+      },
+      bonus: {
+        link: (data) => {
+          if (!data.bonus.link && data.page.lang) {
+            return languages[data.page.lang].promo.url;
+          } else {
+            return data.bonus.link;
+          }
+        },
+      },
+    },
+  };
+};
+```
+
+Where `{binary_slug}` is the URL path segment for binary options (e.g., `binarni-opce` for CS, `binary-options` for EN).
+
+For `games/` and `providers/`, follow the same closure pattern with `tags: ["games"]` / `tags: ["providers"]` and appropriate layouts and slugs.
+
+### Step 8: Translate a starter casino (1xBet reference)
 
 Create `content/{lang}/casinos/1xbet.njk`. Use the Spanish version as source for structure, the English version as source for translation style.
 
@@ -317,7 +469,7 @@ Create `content/{lang}/casinos/1xbet.njk`. Use the Spanish version as source for
    - Casino list links: `/casinos/` → `/{url_prefix}/{casino_list_slug}/`
 6. **Keep external links** (Curaçao eGaming, phone numbers, emails) unchanged
 
-### Step 8: Build and verify
+### Step 9: Build and verify
 
 ```bash
 npm run build
@@ -333,7 +485,7 @@ Checklist:
 - [ ] hreflang tags in `<head>` include the new language alternate link
 - [ ] No Eleventy build errors
 
-### Step 9: Future content expansion
+### Step 10: Future content expansion
 
 After the initial setup, add remaining content files in priority order:
 
@@ -346,32 +498,39 @@ After the initial setup, add remaining content files in priority order:
 
 ## Reference: Permalink Pattern Quick Reference
 
-| Content type | Default language (`es`) | Non-default (en/pt-br/{lang}) |
-|-------------|------------------------|-------------------------------|
-| Any page (via `{lang}.11tydata.js`) | `/{slug}/` | `/{lang}/{slug}/` |
-| Casino detail (via `casinos.11tydata.js`) | `/casino/{slug}/` | `/{lang}/{casino_slug}/{slug}/` |
-| Casino listing | `/casinos/` | `/{lang}/{casino_list_slug}/` |
-| Game detail (via `games.11tydata.js`) | `/juego/{slug}/` | `/{lang}/{game_slug}/{slug}/` |
-| Game listing | `/juegos/` | `/{lang}/{games_list_slug}/` |
-| Provider (via `providers.11tydata.js`) | `/proveedor/{slug}/` | `/{lang}/{provider_slug}/{slug}/` |
-| Provider listing | `/proveedores/` | `/{lang}/{providers_list_slug}/` |
-| Blog post (via `blog.11tydata.js`) | `/blog/{slug}/` | `/{lang}/{blog_slug}/{slug}/` |
-| Blog listing | `/blog/` | `/{lang}/{blog_list_slug}/` |
-| Page (via `pages.11tydata.js`) | `/{slug}/` | `/{lang}/{slug}/` |
+All non-default language `.11tydata.js` files use the **closure pattern** (`module.exports = function () { var LANG = "{lang}"; return { ... }; }`). Listing pages (casinos.njk, archive.njk, blacklisted.njk) use **explicit `permalink`** in front matter — they do NOT use `slugOverride`.
+
+| Content type | `.11tydata.js` permalink pattern | Listing permalink |
+|-------------|----------------------------------|-------------------|
+| Any page (via `{lang}.11tydata.js`) | `"/" + LANG + "/" + this.slugify(data.slugOverride) + "/"` | N/A |
+| Casino detail (via `casinos.11tydata.js`) | `LANG + "/{casino_slug}/" + this.slugify(data.slugOverride) + "/"` | `/{lang}/{casino_list_slug}/` |
+| Blacklist page (via explicit permalink) | (not used) | `/{lang}/{casino_list_slug}/blacklist/` |
+| Page detail (via `pages.11tydata.js`) | `LANG + "/" + this.slugify(data.slugOverride) + "/"` | N/A |
+| Blog post (via `blog.11tydata.js`) | `LANG + "/{blog_slug}/" + this.slugify(data.slugOverride) + "/"` | `/{lang}/{blog_list_slug}/` |
+| Forex detail (via `forex.11tydata.js`) | `LANG + "/forex/" + this.slugify(data.slugOverride) + "/"` | Depends on listing |
+| Binary detail (via `binaries.11tydata.js`) | `LANG + "/{binary_slug}/" + this.slugify(data.slugOverride) + "/"` | Depends on listing |
+| Game detail (via `games.11tydata.js`) | `LANG + "/{game_slug}/" + this.slugify(data.slugOverride) + "/"` | `/{lang}/{games_list_slug}/` |
+| Provider detail (via `providers.11tydata.js`) | `LANG + "/{provider_slug}/" + this.slugify(data.slugOverride) + "/"` | `/{lang}/{providers_list_slug}/` |
 
 ## Reference: Files to Create/Modify Summary
 
 | Action | File | Notes |
 |--------|------|-------|
-| Modify | `_data/languages.js` | Add `{lang}: { ... }` block with all translations |
+| Create | `_data/l10n/{lang}.js` | All ~150 translated strings + menu, nav, promo, categories |
+| Modify | `_data/languages.js` | Add `{lang}: require("./l10n/{lang}.js")` |
 | Modify | `_data/nav.js` | Add `{lang}: [ ... ]` block with nav items |
 | Modify | `_data/categories.js` | Add `{lang}: buildGameCategoriesFromLanguage("{lang}")` |
 | Modify | `_includes/components/bz-message.njk` | Add `elif` for new `flagClass` (or refactor to `flagSvg`) |
 | Modify | `_includes/locale-fix.njk` | Add `elif` for new `flagClass` (or refactor to `flagSvg`) |
 | Modify | `_includes/templates/languages-modal.template.njk` | Add `elif` for new `flagClass` (or refactor to `flagSvg`) |
-| Create | `content/{lang}/{lang}.11tydata.js` | Language config with correct permalink |
+| Create | `content/{lang}/{lang}.11tydata.js` | Root language config (closure pattern) |
 | Create | `content/{lang}/index.njk` | Home page |
-| Create | `content/{lang}/casinos/casinos.11tydata.js` | Casino directory config |
-| Create | `content/{lang}/casinos/casinos.njk` | Casino listing page |
-| Create | `content/{lang}/casinos/blacklisted.njk` | Blacklist page |
+| Create | `content/{lang}/casinos/casinos.11tydata.js` | Casino directory config (closure pattern) |
+| Create | `content/{lang}/casinos/casinos.njk` | Casino listing page (explicit permalink) |
+| Create | `content/{lang}/casinos/blacklisted.njk` | Blacklist page (layout: base.njk, explicit permalink) |
 | Create | `content/{lang}/casinos/1xbet.njk` | Starter casino review |
+| Create | `content/{lang}/pages/pages.11tydata.js` | Static pages config (closure pattern) |
+| Create | `content/{lang}/blog/blog.11tydata.js` | Blog posts config (closure pattern) |
+| Create | `content/{lang}/blog/archive.njk` | Blog listing page (explicit permalink) |
+| Create | `content/{lang}/forex/forex.11tydata.js` | Forex brokers config (closure pattern) |
+| Create | `content/{lang}/binaries/binaries.11tydata.js` | Binary options config (closure pattern) |

@@ -5,6 +5,7 @@ module.exports = function () {
     es: buildGameCategoriesFromLanguage("es"),
     "pt-br": buildGameCategoriesFromLanguage("pt-br"),
     en: buildGameCategoriesFromLanguage("en"),
+    cs: buildGameCategoriesFromLanguage("cs"),
   };
 };
 

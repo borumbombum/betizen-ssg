@@ -137,5 +137,27 @@ module.exports = function () {
       //   id: "term-id-44",
       // },
     ],
+    cs: [
+      {
+        text: "Kasina",
+        url: "/cs/online-kasina/",
+        id: "term-id-5",
+      },
+      {
+        text: "Krypto",
+        url: "/cs/online-kasina/krypto/",
+        id: "term-crypto",
+      },
+      {
+        text: "Forex",
+        url: "/cs/forex/",
+        id: "term-forex",
+      },
+      {
+        text: "Binární",
+        url: "/cs/binarni-opce/",
+        id: "term-binary",
+      },
+    ],
   };
 };

@@ -1,5 +1,4 @@
 {% from "locale-fix.njk" import localeUrlFixDaisy with context %}
-{%- set currentLangClass = languages[page.lang].menu.flagClass %}
 
 <div class="border-b border-base-300 dark:border-gray-700 text-center text-xs px-2 md:px-0">
   <div class="max-w-6xl mx-auto text-base-content flex justify-end md:justify-between">
@@ -75,13 +74,7 @@
             <div class="indicator">
                 <i data-lucide="languages" class="h-4 md:h-4"></i>
                 <span class="badge badge-xs p-0 indicator-item">
-                    {% if currentLangClass == "flag-icon-es" %}
-                        <img src="/assets/imgs/flags/svg/ar.svg" class="h-4" alt="mx-flag" />
-                    {% elif currentLangClass == "flag-icon-br"  %}
-                        <img src="/assets/imgs/flags/svg/br.svg" class="h-4" alt="br-flag" />
-                    {% else %}
-                        <img src="/assets/imgs/flags/svg/un.svg" class="h-4" alt="gb-flag" />
-                    {% endif %}
+                    <img src="{{ languages[page.lang].menu.flagSvg }}" class="h-4" alt="flag" />
                 </span>
             </div>
         </button>

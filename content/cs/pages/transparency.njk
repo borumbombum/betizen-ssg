@@ -1,0 +1,48 @@
+---
+title: "Transparentnost"
+description: "Aby mohla celá komunita činit informovaná rozhodnutí, potřebujeme otevřený systém. Najděte zde všechna fakta o Betizenu."
+slugOverride: transparencia
+---
+
+<div class="max-w-6xl mx-auto">
+
+    <div class="rounded-xl shadow-lg mb-8 dark:shadow-none dark:border dark:border-gray-800">
+        <div 
+          style="background-image: linear-gradient(to right, #4f46e5, #7c3aed)"
+          class="bg-red-200 h-20 relative rounded-t-lg">
+            <div class="absolute top-4 right-6">
+                <a href="{{ '/' | locale_url }}" class="bg-gray-600 text-white text-xs px-3 py-1 rounded">
+                    Domů
+                </a>
+            </div>
+        </div>
+        
+        <div class="pt-12 pb-6 px-6">
+            <div class="flex flex-col items-start justify-between md:mb-4 prose prose-xs md:prose-lg min-w-full prose-p:my-[10px]">
+                <h1>👁️ Transparentnost</h1>
+                <h2 class="text-gray-400 !mt-0 !mb-10">
+                    Aby mohla celá komunita činit informovaná rozhodnutí, <span class="text-neutral dark:text-gray-100">potřebujeme otevřený systém</span>. <span class="text-neutral dark:text-gray-100">Najděte zde všechna fakta o Betizenu</span>.
+                </h2>
+
+                {%- include "components/bz-repo-commits.njk" %}
+
+            </div>
+
+            <div class="alert alert-lg alert-info alert-soft mt-8">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6 hidden md:flex">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div>
+                <h3 class="md:text-lg font-bold">Máte další otázky?</h3>
+                <div class="text-xs">Napište nám na Instagram a odpovíme okamžitě</div>
+              </div>
+              <div>
+                <a href="{{ config.links.instagram }}" target="_blank" rel="noopener noreferrer" class="btn btn-info text-white btn-sm">@betizen_org</a>
+              </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
