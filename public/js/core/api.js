@@ -107,8 +107,10 @@ window.BZ.api = {
     },
 
     getEntityKarma: async (entityIds) => {
-      const query = new URLSearchParams({ entity_ids: entityIds.join(",") }).toString();
-      return window.BZ.api.request(`/voting/entity/karma?${query}`);
+      return window.BZ.api.request("/voting/entity/karma", {
+        method: "POST",
+        body: JSON.stringify({ entity_ids: entityIds }),
+      });
     },
 
     // Count link vistit even if the user is not loggeed-in

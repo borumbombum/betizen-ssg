@@ -88,6 +88,7 @@ module.exports = {
     earn: "Verdienen",
     points: "Karma",
     vote: "Abstimmen",
+    votes: "Stimmen",
     howWorks: "Wie funktioniert es?",
 
     orderNewer: "Neueste",

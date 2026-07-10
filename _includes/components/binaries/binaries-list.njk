@@ -1,7 +1,7 @@
 {%- from "macros/reputation-button.njk" import reputationButton with context -%}
 {% from "macros/voting-buttons.macro.njk" import votingButtons with context %}
 
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4" data-bz-listing>
     {% set counter = 0 -%}
     {% for post in postsList | sortByOrder %} 
         {% if post.data.details %}
@@ -30,7 +30,8 @@
                         <span class="text-base-content text-sm leading-tight font-medium md:text-xl">{{ post.data.title }}</span>
                         <div class="badge badge-soft badge-primary badge-md shrink-0 md:badge-lg"
                              data-bz-entity-id="{{ post.fileSlug }}" hidden>
-                            <span data-bz-karma-value></span>&nbsp;karma
+                            <span data-bz-karma-value></span>
+                            <span data-bz-vote-count></span>
                         </div>
                     </div>
                 </a>

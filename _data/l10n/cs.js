@@ -88,6 +88,7 @@ module.exports = {
     earn: "Získejte",
     points: "karma",
     vote: "Hlasovat",
+    votes: "hlasů",
     howWorks: "Jak to funguje?",
 
     orderNewer: "Nejnovější",

@@ -90,6 +90,7 @@ module.exports = {
     earn: "Ganhe",
     points: "karma",
     vote: "Votar",
+    votes: "votos",
     howWorks: "Como funciona?",
 
     orderNewer: "Novos",

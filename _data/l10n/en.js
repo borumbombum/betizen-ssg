@@ -83,6 +83,7 @@ module.exports = {
     earn: "Earn",
     points: "karma",
     vote: "Vote",
+    votes: "votes",
     howWorks: "How does it work?",
 
     orderNewer: "Newest",

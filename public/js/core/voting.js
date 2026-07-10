@@ -130,6 +130,7 @@ window.BZ.voting = {
 
       // Refresh entity karma after vote
       this.loadEntityKarma();
+      this.reorderEntityRow(entityId);
 
       // Update local state
       // const userVotes = window.BZ.state.get("voting.userVotes");
@@ -225,6 +226,7 @@ window.BZ.voting = {
 
       // Refresh entity karma after vote
       this.loadEntityKarma();
+      this.reorderEntityRow(entityId);
     } catch (error) {
       console.error("Vote failed", error);
       showToast(`${getTranslation("texts.votingFailed")}`, "error");
@@ -465,16 +467,109 @@ window.BZ.voting = {
         el.removeAttribute("hidden");
 
         const karmaValueEl = el.querySelector("[data-bz-karma-value]");
-        if (karmaValueEl) karmaValueEl.textContent = `${entity.karma} karma `;
+        if (karmaValueEl) karmaValueEl.textContent = `${entity.karma} karma`;
 
         const rankEl = el.querySelector("[data-bz-rank]");
         if (rankEl) rankEl.textContent = `#${entity.rank}`;
 
         const voteCountEl = el.querySelector("[data-bz-vote-count]");
-        if (voteCountEl) voteCountEl.textContent = `(${entity.vote_count})`;
+        if (voteCountEl) voteCountEl.textContent = `(${entity.vote_count} ${getTranslation("texts.votes")})`;
       });
     } catch {
       // Silently fail
+    }
+
+    // Reorder rows by karma on listing pages only
+    const listing = document.querySelector("[data-bz-listing]");
+    if (!listing) return;
+
+    // FLIP: snapshot old positions
+    const rects = new Map();
+    const rows = [...listing.children].filter((el) =>
+      el.querySelector("[data-bz-entity-id]")
+    );
+    rows.forEach((r) => rects.set(r, r.getBoundingClientRect().top));
+
+    rows.sort((a, b) => {
+      const ka =
+        parseFloat(
+          a.querySelector("[data-bz-karma-value]")?.textContent
+        ) || 0;
+      const kb =
+        parseFloat(
+          b.querySelector("[data-bz-karma-value]")?.textContent
+        ) || 0;
+      return kb - ka;
+    });
+    rows.forEach((r) => listing.appendChild(r));
+
+    // FLIP: animate from old position to new
+    requestAnimationFrame(() => {
+      rows.forEach((r) => {
+        const old = rects.get(r);
+        const cur = r.getBoundingClientRect().top;
+        const dy = old - cur;
+        if (dy !== 0) {
+          r.style.transition = "none";
+          r.style.transform = `translateY(${dy}px)`;
+          requestAnimationFrame(() => {
+            r.style.transition = "transform 400ms ease";
+            r.style.transform = "";
+            setTimeout(() => {
+              r.style.transition = "";
+            }, 450);
+          });
+        }
+      });
+    });
+  },
+
+  async reorderEntityRow(entityId) {
+    const listing = document.querySelector("[data-bz-listing]");
+    const badge = listing?.querySelector(
+      `[data-bz-entity-id="${entityId}"]`
+    );
+    if (!badge) return;
+    const row = badge.closest("[data-bz-listing] > div");
+    if (!row) return;
+
+    const karmaEl = row.querySelector("[data-bz-karma-value]");
+    const newKarma = parseFloat(karmaEl?.textContent) || 0;
+
+    // FLIP: snapshot old position
+    const oldRect = row.getBoundingClientRect();
+
+    const siblings = [...listing.children].filter(
+      (el) => el !== row && el.querySelector("[data-bz-entity-id]")
+    );
+    let insertBefore = null;
+    for (const sib of siblings) {
+      const sk =
+        parseFloat(
+          sib.querySelector("[data-bz-karma-value]")?.textContent
+        ) || 0;
+      if (newKarma > sk) {
+        insertBefore = sib;
+        break;
+      }
+    }
+    insertBefore
+      ? listing.insertBefore(row, insertBefore)
+      : listing.appendChild(row);
+
+    // FLIP: animate
+    const newRect = row.getBoundingClientRect();
+    const dy = oldRect.top - newRect.top;
+    if (dy !== 0) {
+      row.style.transition = "none";
+      row.style.transform = `translateY(${dy}px)`;
+      requestAnimationFrame(() => {
+        row.style.transition = "transform 400ms ease";
+        row.style.transform = "";
+        setTimeout(() => {
+          row.style.transition = "";
+        }, 450);
+      });
     }
   },
 
