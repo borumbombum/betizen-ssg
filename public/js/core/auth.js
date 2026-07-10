@@ -78,9 +78,11 @@ window.BZ.auth = {
 
     // Only update UI elements if the data exists in your API
     if (user.karma != null) {
+      const given = user.total_karma_given || 0;
+      const total = given + user.karma;
       const karmaElements = document.querySelectorAll(".bz-karma-count");
       karmaElements.forEach((el) => {
-        el.textContent = `${user.karma} karma`;
+        el.textContent = `${total} karma`;
       });
     }
 

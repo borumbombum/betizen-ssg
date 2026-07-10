@@ -32,8 +32,9 @@
                     {# Title + Karma (Strictly side-by-side) #}
                     <div class="flex flex-row items-center gap-2 min-w-0 flex-wrap md:prose-lg">
                         <span class="text-base-content text-sm leading-tight font-medium md:text-xl">{{ post.data.title }}</span>
-                        <div class="badge badge-soft badge-primary badge-md shrink-0 md:badge-lg">
-                            {{- post.data.score.toFixed(1) or "0.0" }}&nbsp;karma
+                        <div class="badge badge-soft badge-primary badge-md shrink-0 md:badge-lg"
+                             data-bz-entity-id="{{ post.fileSlug }}" hidden>
+                            <span data-bz-karma-value></span>
                         </div>
                     </div>
                 </a>

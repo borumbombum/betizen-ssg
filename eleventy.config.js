@@ -159,10 +159,12 @@ module.exports = function (eleventyConfig) {
   // sort casinos by score
   // credit: @noelforte - https://github.com/11ty/eleventy/issues/898
   eleventyConfig.addFilter("sortByOrder", function (values) {
-    {
-      let vals = [...values]; // this *seems* to prevent collection mutation...
-      return vals.sort((a, b) => Math.sign(b.data.score - a.data.score));
-    }
+    let vals = [...values];
+    return vals.sort((a, b) => {
+      let sa = a.data.score ?? -Infinity;
+      let sb = b.data.score ?? -Infinity;
+      return Math.sign(sb - sa);
+    });
   });
 
   eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {

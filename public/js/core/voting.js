@@ -19,6 +19,17 @@ window.BZ.voting = {
     });
 
     // UI Subscriptions
+    // Helper to update the karma count badge with the sum of given + available
+    function updateKarmaDisplay() {
+      const s = window.BZ.state;
+      const given = s.get("auth.user.total_karma_given") || 0;
+      const avail = s.get("auth.user.karma") || 0;
+      const total = given + avail;
+      document.querySelectorAll(".bz-karma-count").forEach((el) => {
+        el.textContent = `${total} karma`;
+      });
+    }
+
     // Subscribe to changes in user karma
     window.BZ.state.subscribe("auth.user.karma", (newKarma) => {
       const user = JSON.parse(localStorage.getItem("bz_user"));
@@ -26,11 +37,17 @@ window.BZ.voting = {
 
       // save edited value to local storage
       localStorage.setItem("bz_user", JSON.stringify(user));
-      // update ui elements
-      const karmaElements = document.querySelectorAll(".bz-karma-count");
-      karmaElements.forEach((el) => {
-        el.textContent = `${newKarma} karma`;
-      });
+      updateKarmaDisplay();
+    });
+
+    // Subscribe to changes in total_karma_given
+    window.BZ.state.subscribe("auth.user.total_karma_given", (newGiven) => {
+      const user = JSON.parse(localStorage.getItem("bz_user"));
+      user.total_karma_given = newGiven;
+
+      // save edited value to local storage
+      localStorage.setItem("bz_user", JSON.stringify(user));
+      updateKarmaDisplay();
     });
 
     // Subscribe changes to user ranking
@@ -420,31 +437,44 @@ window.BZ.voting = {
       if (response && response.data.rank != null) {
         window.BZ.state.set("auth.user.rank", response.data.rank);
       }
+      // Update total_karma_given state
+      if (response && response.data.total_karma_given != null) {
+        window.BZ.state.set("auth.user.total_karma_given", response.data.total_karma_given);
+      }
     } catch {
       console.error("Failed to get user karma data", error);
     }
   },
 
   async loadEntityKarma() {
-    const entityId = document.querySelector("[data-bz-entity-id]")?.dataset
-      .bzEntityId;
-    if (!entityId) return;
+    const entityEls = document.querySelectorAll("[data-bz-entity-id]");
+    if (!entityEls.length) return;
+
+    const ids = [...new Set([...entityEls].map((el) => el.dataset.bzEntityId).filter(Boolean))];
+    if (!ids.length) return;
 
     try {
-      const response = await window.BZ.api.voting.getEntityKarma([entityId]);
-      const entity = response?.data?.entities?.[0];
-      if (!entity) return;
+      const response = await window.BZ.api.voting.getEntityKarma(ids);
+      const entities = response?.data?.entities;
+      if (!entities || !entities.length) return;
 
-      const rankEl = document.querySelector("[data-bz-rank]");
-      if (rankEl) rankEl.textContent = `#${entity.rank}`;
+      entities.forEach((entity) => {
+        const el = document.querySelector(`[data-bz-entity-id="${entity.entity_id}"]`);
+        if (!el) return;
 
-      const karmaValueEl = document.querySelector("[data-bz-karma-value]");
-      if (karmaValueEl) karmaValueEl.textContent = `${entity.karma} karma `;
+        el.removeAttribute("hidden");
 
-      const voteCountEl = document.querySelector("[data-bz-vote-count]");
-      if (voteCountEl) voteCountEl.textContent = `(${entity.vote_count})`;
+        const karmaValueEl = el.querySelector("[data-bz-karma-value]");
+        if (karmaValueEl) karmaValueEl.textContent = `${entity.karma} karma `;
+
+        const rankEl = el.querySelector("[data-bz-rank]");
+        if (rankEl) rankEl.textContent = `#${entity.rank}`;
+
+        const voteCountEl = el.querySelector("[data-bz-vote-count]");
+        if (voteCountEl) voteCountEl.textContent = `(${entity.vote_count})`;
+      });
     } catch {
-      // Silently fail — static values remain as fallback
+      // Silently fail
     }
   },
 
