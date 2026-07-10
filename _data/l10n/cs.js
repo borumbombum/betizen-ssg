@@ -57,6 +57,9 @@ module.exports = {
   texts: {
     nostrLoginFailed:
       "Přihlášení přes Nostr selhalo. Ujistěte se, že máte signer.",
+    loginTimeout: "Přihlášení zrušeno nebo vypršel časový limit",
+    googleLoginFailed: "Přihlášení přes Google selhalo",
+    invalidNsec: "Neplatný nsec klíč",
     poweredBy: "Poháněno",
     karmaEarnRedirecting: "Přesměrování...",
     karmaPoints: "karma bodů",
@@ -71,6 +74,7 @@ module.exports = {
     viewOnGitHub: "Zobrazit na GitHubu",
     or: "nebo",
     close: "Zavřít",
+    go: "Jít",
     bad: "Špatné",
     average: "Průměrné",
     good: "Dobré",
@@ -104,7 +108,7 @@ module.exports = {
     noItemToList: "Žádné položky k zobrazení.",
     spreadKarma: "Rozšiřujme karmu! 🤪",
     login: "Vstup",
-    loginWithNostr: "Přihlásit se přes Nostr (NIP-07)",
+    loginWithNostr: "Přihlásit se přes Nostr",
     loginWithEmail: "Odeslat přihlašovací kód",
     logout: "Odhlásit se",
     news: "Novinky",

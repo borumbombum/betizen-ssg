@@ -57,6 +57,9 @@ module.exports = {
   texts: {
     nostrLoginFailed:
       "Nostr-Login fehlgeschlagen. Stelle sicher, dass du einen Signer hast.",
+    loginTimeout: "Login abgebrochen oder Zeitüberschreitung",
+    googleLoginFailed: "Google-Login fehlgeschlagen",
+    invalidNsec: "Ungültiger nsec-Schlüssel",
     poweredBy: "Unterstützt von",
     karmaEarnRedirecting: "Weiterleitung...",
     karmaPoints: "Karma-Punkte",
@@ -71,6 +74,7 @@ module.exports = {
     viewOnGitHub: "Auf GitHub anzeigen",
     or: "oder",
     close: "Schließen",
+    go: "Los",
     bad: "Schlecht",
     average: "Durchschnittlich",
     good: "Gut",
@@ -104,7 +108,7 @@ module.exports = {
     noItemToList: "Keine Einträge vorhanden.",
     spreadKarma: "Lasst uns Karma verbreiten! 🤪",
     login: "Anmelden",
-    loginWithNostr: "Mit Nostr anmelden (NIP-07)",
+    loginWithNostr: "Mit Nostr anmelden",
     loginWithEmail: "Anmeldecode senden",
     logout: "Abmelden",
     news: "Neuigkeiten",

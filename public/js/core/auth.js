@@ -186,7 +186,7 @@ window.BZ.auth = {
 
       const timeout = new Promise((_, reject) =>
         setTimeout(
-          () => reject(new Error("Login cancelled or timed out")),
+          () => reject(new Error(getTranslation("texts.loginTimeout"))),
           60000,
         ),
       );
@@ -215,12 +215,63 @@ window.BZ.auth = {
     } catch (error) {
       console.error("Nostr login error:", error);
       showToast(
-        error.message || getTranslation("texts.nostrLoginFailed"),
+        getTranslation("texts.nostrLoginFailed"),
         "error",
       );
     } finally {
       window.BZ.state.set("ui.loading", false);
       if (btn) btn.disabled = false;
+    }
+  },
+
+  async loginWithNsec(nsecKey) {
+    if (!nsecKey || !nsecKey.startsWith("nsec")) {
+      showToast(getTranslation("texts.invalidNsec"), "error");
+      return;
+    }
+
+    try {
+      window.BZ.state.set("ui.loading", true);
+
+      const { data } = NostrTools.nip19.decode(nsecKey);
+
+      const challengeRes = await window.BZ.api.auth.getNostrChallenge();
+      const challenge = challengeRes.data.challenge;
+
+      const eventTemplate = {
+        kind: 22242,
+        tags: [["challenge", challenge]],
+        content: "Cubiq authentication",
+        created_at: Math.floor(Date.now() / 1000),
+      };
+
+      const signedEvent = NostrTools.finalizeEvent(eventTemplate, data);
+
+      const apiResponse = await window.BZ.api.auth.loginWithNostr({
+        signed_event: JSON.stringify(signedEvent),
+        challenge,
+      });
+
+      const token = apiResponse.data.access_token;
+      const user = apiResponse.data.user;
+
+      localStorage.setItem("bz_token", token);
+      localStorage.setItem("bz_user", JSON.stringify(user));
+
+      window.BZ.state.set("auth.token", token);
+      window.BZ.state.set("auth.user", user);
+      window.BZ.state.set("auth.isAuthenticated", true);
+
+      showToast(getTranslation("texts.welcome"), "success");
+      document.getElementById("bz_modal_1")?.close();
+    } catch (error) {
+      console.error("Nsec login error:", error);
+      showToast(
+        getTranslation("texts.nostrLoginFailed"),
+        "error",
+      );
+    } finally {
+      window.BZ.state.set("ui.loading", false);
     }
   },
 
@@ -246,7 +297,7 @@ window.BZ.auth = {
 
       document.getElementById("bz_modal_1")?.close();
     } catch (error) {
-      showToast("Google login failed", "error");
+      showToast(getTranslation("texts.googleLoginFailed"), "error");
     } finally {
       window.BZ.state.set("ui.loading", false);
     }
@@ -263,7 +314,7 @@ window.BZ.auth = {
     showToast(getTranslation("texts.logoutMessage"), "info");
   },
 
-  showLoginModal() {
+  showLoginModal(showModal = true) {
     const loginForm = `
       <div class="mx-auto max-w-sm">
         <form id="bz-login-form" class="space-y-4">
@@ -287,25 +338,21 @@ window.BZ.auth = {
     `;
 
     window.BZ.modal.show({
-      // title: "Login to Betizen",
       title: getTranslation("texts.login"),
       body: loginForm,
-    });
+    }, showModal);
 
     const container = document.getElementById("google-login-container");
     if (container) {
-      // 1. Handle Dark Mode
       const currentTheme = document.documentElement.getAttribute("data-theme");
       const buttonTheme = currentTheme === "dark" ? "filled_black" : "outline";
 
-      // 2. Handle Width (up to Google's max of 400px)
       const containerWidth = container.offsetWidth;
       const buttonWidth = Math.min(
         containerWidth > 0 ? containerWidth : 300,
         400,
       );
 
-      // Render the Google button
       if (
         window.google &&
         window.google.accounts &&
@@ -318,6 +365,53 @@ window.BZ.auth = {
           width: buttonWidth.toString(),
         });
       }
+    }
+
+    document.getElementById("nostr-login-btn")?.addEventListener("click", () => {
+      this.showNostrOptions();
+    });
+  },
+
+  showNostrOptions() {
+    const step2Html = `
+      <div class="mx-auto max-w-sm">
+        <div class="space-y-4">
+          <button type="button" id="nostr-back-btn" class="btn btn-ghost btn-sm -ml-2">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          </button>
+
+          <button type="button" id="nostr-nip07-btn" class="btn btn-outline dark:btn-ghost dark:shadow-none dark:border-none rounded w-full dark:hover:bg-[#5E5F60] font-normal text-[14px] text-[#3C4044] dark:text-[#e8eaed] dark:bg-[#202124] border-[#DADCE0]">
+            NIP-07
+          </button>
+
+          <div class="flex gap-2 items-center">
+            <input type="password" id="nsec-input" placeholder="nsec..." class="input input-bordered flex-1 text-sm">
+            <button type="button" id="nsec-go" class="btn btn-primary btn-sm">${getTranslation("texts.go")}</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    window.BZ.modal.show({
+      title: getTranslation("texts.login"),
+      body: step2Html,
+    }, false);
+
+    document.getElementById("nostr-back-btn")?.addEventListener("click", () => {
+      this.showLoginModal(false);
+    });
+
+    document.getElementById("nostr-nip07-btn")?.addEventListener("click", () => {
+      this.loginWithNostr();
+    });
+
+    document.getElementById("nsec-go")?.addEventListener("click", () => {
+      const input = document.getElementById("nsec-input");
+      this.loginWithNsec(input.value.trim());
+    });
+
+    if (typeof lucide !== "undefined" && lucide.createIcons) {
+      lucide.createIcons();
     }
   },
 };

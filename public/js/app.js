@@ -44,12 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         //     );
         //   });
 
-        // Nostr login
-        document
-          .getElementById("nostr-login-btn")
-          ?.addEventListener("click", () => {
-            window.BZ.auth.loginWithNostr();
-          });
+        // Nostr login handlers are wired inside auth.js showLoginModal / showNostrOptions
       }, 100);
     }
 
