@@ -21,9 +21,9 @@ module.exports = {
     url: "https://forms.gle/vMpnv4cFgccHYNp56",
   },
   promo: {
-    url: "https://mu.fastmui.com/redirect.aspx?pid=101348&bid=2036&lpid=502",
+    url: "https://reffpa.com/L?tag=d_5827615m_97c_&site=5827615&ad=97&r=registration",
     cta: "👉 QUER 150 RODADAS GRÁTIS?",
-    image: metadata.images.banners + "national-pt-1176x264.png",
+    image: metadata.images.banners + "1176x264-1xbet-pt-br.png",
     carrouselBonus: {
       image: "/assets/imgs/site/bonus-bg-2-pt.png",
       url: "https://url.hk/i/en/exptf",
