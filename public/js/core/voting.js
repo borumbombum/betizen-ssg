@@ -66,7 +66,9 @@ window.BZ.voting = {
     // Handle browser back button after external redirect (bfcache restore)
     window.addEventListener("pageshow", (event) => {
       if (event.persisted) {
-        document.getElementById("modal-external-click")?.classList.remove("modal-open");
+        document
+          .getElementById("modal-external-click")
+          ?.classList.remove("modal-open");
         window.BZ.state.set("ui.currentModal", null);
         document.querySelectorAll("[data-earnurl]:disabled").forEach((btn) => {
           btn.disabled = false;
@@ -139,8 +141,16 @@ window.BZ.voting = {
     const entityId = button.dataset.entityId;
     const karma = button.dataset.karma;
 
+    // Grab the icons for toggling
+    const heartIcon = button.querySelector(".heart-icon");
+    const loaderIcon = button.querySelector(".loader-icon");
+
     try {
       button.disabled = true;
+
+      // Show loader, hide heart
+      if (heartIcon) heartIcon.classList.add("hidden");
+      if (loaderIcon) loaderIcon.classList.remove("hidden");
 
       const response = await window.BZ.api.voting.vote({
         entity_id: entityId,
@@ -175,12 +185,16 @@ window.BZ.voting = {
         }, 500);
       }
 
-      const svg = button.querySelector("svg");
-      if (svg) {
-        svg.classList.remove("animate-pop");
-        void svg.offsetWidth;
-        svg.classList.add("animate-pop");
-        this.createParticles(svg);
+      // Restore heart visibility immediately before animating
+      if (heartIcon) heartIcon.classList.remove("hidden");
+      if (loaderIcon) loaderIcon.classList.add("hidden");
+
+      // Animate the specific heart icon, not just any 'svg'
+      if (heartIcon) {
+        heartIcon.classList.remove("animate-pop");
+        void heartIcon.offsetWidth; // Trigger reflow
+        heartIcon.classList.add("animate-pop");
+        this.createParticles(heartIcon);
       }
 
       showToast(`${getTranslation("texts.votingSuccess")}`, "success");
@@ -197,16 +211,100 @@ window.BZ.voting = {
     } catch (error) {
       console.error("Vote failed", error);
       showToast(`${getTranslation("texts.votingFailed")}`, "error");
+
+      // Ensure icons are reset even if the request fails
+      if (heartIcon) heartIcon.classList.remove("hidden");
+      if (loaderIcon) loaderIcon.classList.add("hidden");
     } finally {
       button.disabled = false;
     }
   },
+  // async handleHeartVote(button) {
+  //   if (!window.BZ.state.get("auth.isAuthenticated")) {
+  //     window.BZ.auth.showLoginModal();
+  //     return;
+  //   }
+
+  //   const entityId = button.dataset.entityId;
+  //   const karma = button.dataset.karma;
+
+  //   try {
+  //     button.disabled = true;
+
+  //     const response = await window.BZ.api.voting.vote({
+  //       entity_id: entityId,
+  //       karma: Number(karma),
+  //     });
+
+  //     button.classList.add("liked");
+
+  //     const label = button.querySelector(".heart-label");
+  //     const votedText = label ? label.dataset.votedText : "";
+  //     if (label) {
+  //       label.textContent = votedText;
+  //       label.classList.add("opacity-100");
+  //       label.classList.remove("opacity-60");
+
+  //       setTimeout(() => {
+  //         let count = 3;
+  //         label.textContent = votedText + " (" + count + ")";
+
+  //         const interval = setInterval(() => {
+  //           count--;
+  //           if (count > 0) {
+  //             label.textContent = votedText + " (" + count + ")";
+  //           } else {
+  //             clearInterval(interval);
+  //             button.classList.remove("liked");
+  //             label.textContent = label.dataset.againText;
+  //             label.classList.add("opacity-60");
+  //             label.classList.remove("opacity-100");
+  //           }
+  //         }, 1000);
+  //       }, 500);
+  //     }
+
+  //     const svg = button.querySelector("svg");
+  //     if (svg) {
+  //       svg.classList.remove("animate-pop");
+  //       void svg.offsetWidth;
+  //       svg.classList.add("animate-pop");
+  //       this.createParticles(svg);
+  //     }
+
+  //     showToast(`${getTranslation("texts.votingSuccess")}`, "success");
+
+  //     if (response && response.data.newKarma != null) {
+  //       window.BZ.state.set("auth.user.karma", response.data.newKarma);
+  //     }
+  //     if (response && response.data.newRank != null) {
+  //       window.BZ.state.set("auth.user.rank", response.data.newRank);
+  //     }
+
+  //     // Refresh entity karma after vote
+  //     this.loadEntityKarma();
+  //   } catch (error) {
+  //     console.error("Vote failed", error);
+  //     showToast(`${getTranslation("texts.votingFailed")}`, "error");
+  //   } finally {
+  //     button.disabled = false;
+  //   }
+  // },
 
   createParticles(targetEl) {
     const rect = targetEl.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    const colors = ["#dc3545", "#ff6b6b", "#ff8787", "#f03e3e", "#c92a2a", "#ffa8a8", "#e03131", "#fa5252"];
+    const colors = [
+      "#dc3545",
+      "#ff6b6b",
+      "#ff8787",
+      "#f03e3e",
+      "#c92a2a",
+      "#ffa8a8",
+      "#e03131",
+      "#fa5252",
+    ];
 
     for (let i = 0; i < 12; i++) {
       const particle = document.createElement("div");
@@ -286,23 +384,22 @@ window.BZ.voting = {
         // window.open(urlToVisit, "_blank");
       }
     } else {
-      
       console.log("Karma not earned, used is logged out.");
       window.BZ.state.set("ui.currentModal", "external_link_opening");
 
       document.getElementById("modal-external-click-message").innerHTML =
         `${getTranslation("texts.karmaEarnRedirecting")}`;
 
-      try{
+      try {
         // Try to count the visit to the link
         const visitCount = await window.BZ.api.voting.countVisit({
           url: urlToVisit,
         });
-      }catch (error){
+      } catch (error) {
         // Some api error, log it and redirect
         console.error(`Error: Cound not count visit, api seems off ${error}`);
       }
-      
+
       /* Visit link anyway, even if api is off */
       window.location.href = urlToVisit;
     }
@@ -329,7 +426,8 @@ window.BZ.voting = {
   },
 
   async loadEntityKarma() {
-    const entityId = document.querySelector("[data-bz-entity-id]")?.dataset.bzEntityId;
+    const entityId = document.querySelector("[data-bz-entity-id]")?.dataset
+      .bzEntityId;
     if (!entityId) return;
 
     try {
