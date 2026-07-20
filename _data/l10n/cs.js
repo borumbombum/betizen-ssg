@@ -25,9 +25,11 @@ module.exports = {
     cta: "👉 NÁROKOVAT 100 ZATOČENÍ ZDARMA?",
     image: metadata.images.banners + "1176x264-1xbet-en.png",
     carrouselBonus: {
-      image: "/assets/imgs/site/bonus-bg-2-en.png",
-      url: "https://url.hk/i/en/exptf",
-      cta: "Zaregistrujte se a získejte $5 zdarma",
+      // image: "/assets/imgs/site/bonus-bg-2-en.png",
+      image: "/assets/imgs/site/hunnyplay-bonus-en.png",
+      // url: "https://url.hk/i/en/exptf",
+      url: "https://hunnyplay.games/dbw3v7xvy",
+      cta: "$5 000 Prize Pool",
     },
     casino: {
       logo: "/assets/imgs/casinos/1xbet-logo.webp",

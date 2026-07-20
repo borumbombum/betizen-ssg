@@ -25,9 +25,11 @@ module.exports = {
     cta: "👉 100 FREISPIELE SICHERN?",
     image: metadata.images.banners + "1176x264-1xbet-en.png",
     carrouselBonus: {
-      image: "/assets/imgs/site/bonus-bg-2-en.png",
-      url: "https://url.hk/i/en/exptf",
-      cta: "Jetzt registrieren und $5 gratis erhalten",
+      // image: "/assets/imgs/site/bonus-bg-2-en.png",
+      image: "/assets/imgs/site/hunnyplay-bonus-en.png",
+      // url: "https://url.hk/i/en/exptf",
+      url: "https://hunnyplay.games/dbw3v7xvy",
+      cta: "$5.000 Preispool",
     },
     casino: {
       logo: "/assets/imgs/casinos/1xbet-logo.webp",
