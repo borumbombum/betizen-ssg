@@ -1,0 +1,102 @@
+<div class="max-w-6xl mx-auto">
+
+    {# Login prompt (shown when NOT logged in) #}
+    <div class="auth-logged-out rounded-xl shadow-lg mb-8">
+        <div
+          style="background-image: linear-gradient(to right, #4f46e5, #7c3aed)"
+          class="h-20 relative rounded-t-lg">
+        </div>
+        <div class="pt-12 pb-6 px-6">
+            <div class="flex flex-col items-start justify-between md:mb-4 prose prose-xs md:prose-lg min-w-full prose-p:my-[10px]">
+                <h1 class="!mb-2">{{ title }}</h1>
+                <h2 class="text-gray-400 !mt-0 !mb-10">{{ description }}</h2>
+            </div>
+            <p class="mb-6">{{ languages[page.lang].texts.requireLogin }}</p>
+            <button class="btn btn-login btn-primary text-white">
+                {{ languages[page.lang].texts.login }}
+            </button>
+        </div>
+    </div>
+
+    {# Benefits content (shown when logged in) #}
+    <div class="auth-logged-in hidden flex-col rounded-xl shadow-lg mb-8">
+        <div
+          style="background-image: linear-gradient(to right, #4f46e5, #7c3aed)"
+          class="h-20 relative rounded-t-lg">
+            <div class="absolute top-4 right-6">
+                <a href="{{ '/' | locale_url }}" class="bg-gray-600 text-white text-xs px-3 py-1 rounded">
+                    {{ languages[page.lang].texts.home }}
+                </a>
+            </div>
+        </div>
+
+        <div class="pt-12 pb-6 px-6">
+            <div class="flex flex-col items-start justify-between md:mb-4 prose prose-xs md:prose-lg min-w-full prose-p:my-[10px]">
+                <h1 class="!mb-2">{{ title }}</h1>
+                <h2 class="text-gray-400 !mt-0 !mb-8">{{ description }}</h2>
+            </div>
+
+            {# Tier cards #}
+            {#
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 !mb-8">
+                <div class="card bg-base-200/50">
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title">{{ languages[page.lang].texts.benefitsBronze or "Bronze" }}</h2>
+                        <p>1,000 Karma</p>
+                        <div class="badge badge-accent">{{ languages[page.lang].texts.soon or "Soon" }}</div>
+                    </div>
+                </div>
+                <div class="card bg-base-200/50">
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title">{{ languages[page.lang].texts.benefitsSilver or "Silver" }}</h2>
+                        <p>5,000 Karma</p>
+                        <div class="badge badge-secondary">{{ languages[page.lang].texts.soon or "Soon" }}</div>
+                    </div>
+                </div>
+                <div class="card bg-base-200/50">
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title">{{ languages[page.lang].texts.benefitsGold or "Gold" }}</h2>
+                        <p>10,000 Karma</p>
+                        <div class="badge badge-primary">{{ languages[page.lang].texts.soon or "Soon" }}</div>
+                    </div>
+                </div>
+            </div>
+            #}
+
+            {# Promotions (server-rendered fallback, replaced by JS if API succeeds) #}
+            <div class="text-left prose prose-h3:mb-2 mb-6">
+                <h3>{{ languages[page.lang].texts.availablePromotions }}</h3>
+            </div>
+            <div id="benefits-promotions" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% set promos = [languages[page.lang].promo.casino, languages[page.lang].promo.casino2] %}
+                {% for promo in promos %}
+                    {% if promo %}
+                    <div class="card bg-base-200/50">
+                        <figure class="px-6 pt-6">
+                            <img src="{{ promo.logo }}" alt="{{ promo.name }}" class="rounded-xl h-16 object-contain" loading="lazy" />
+                        </figure>
+                        <div class="card-body items-center text-center">
+                            <h3 class="card-title text-sm">{{ promo.title }}</h3>
+                            <div class="card-actions mt-2">
+                                <a href="{{ promo.url }}" class="btn btn-primary btn-sm" rel="nofollow noopener" target="_blank">{{ promo.cta }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (!window.BZ || !window.BZ.state || !window.BZ.state.get("auth.isAuthenticated")) {
+            if (window.BZ && window.BZ.auth && window.BZ.auth.showLoginModal) {
+                window.BZ.auth.showLoginModal();
+            }
+        }
+    });
+</script>

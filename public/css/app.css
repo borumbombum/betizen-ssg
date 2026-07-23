@@ -41,6 +41,9 @@
   .invert-logo {
     @apply invert;
   }
+  .carousel-smooth:after {
+    @apply invert;
+  }
 }
 
 html {
@@ -83,6 +86,7 @@ html {
   position: absolute;
   width: 50px;
   height: 100%;
+  max-height: 250px;
   transition: all 0.3s ease-out 0s;
   cursor: pointer;
   z-index: 5;
@@ -117,7 +121,9 @@ html {
 }
 
 #casinos-list tr {
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
 }
 
 #casinos-list tr.hidden {
@@ -150,11 +156,21 @@ html {
 }
 
 @keyframes heartPop {
-  0%   { transform: scale(1); }
-  15%  { transform: scale(1.35); }
-  30%  { transform: scale(0.9); }
-  45%  { transform: scale(1.2); }
-  60%  { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.35);
+  }
+  30% {
+    transform: scale(0.9);
+  }
+  45% {
+    transform: scale(1.2);
+  }
+  60% {
+    transform: scale(1);
+  }
 }
 
 /* Particle burst */

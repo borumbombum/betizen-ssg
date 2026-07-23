@@ -108,6 +108,8 @@ module.exports = {
     noItemToList: "Nenhum item para listar.",
     spreadKarma: "Vamos espalhar karma! 🤪",
     login: "Acessar",
+    requireLogin: "Faça login para acessar seus benefícios",
+    availablePromotions: "Promoções disponíveis",
     loginWithNostr: "Entrar com Nostr",
     invalidNsec: "Chave nsec inválida",
     loginTimeout: "Login cancelado ou tempo limite excedido",

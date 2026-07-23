@@ -110,6 +110,8 @@ module.exports = {
     noItemToList: "Keine Einträge vorhanden.",
     spreadKarma: "Lasst uns Karma verbreiten! 🤪",
     login: "Anmelden",
+    requireLogin: "Melden Sie sich an, um auf Ihre Vorteile zuzugreifen",
+    availablePromotions: "Verfügbare Aktionen",
     loginWithNostr: "Mit Nostr anmelden",
     loginWithEmail: "Anmeldecode senden",
     logout: "Abmelden",

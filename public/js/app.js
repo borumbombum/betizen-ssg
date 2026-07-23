@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (window.BZ?.voting) window.BZ.voting.init();
   if (window.BZ?.cms) window.BZ.cms.init();
   if (window.BZ?.leaderboard) window.BZ.leaderboard.init();
+  if (window.BZ?.benefits) window.BZ.benefits.init();
   if (window.BZ?.globalSearch) window.BZ.globalSearch.init();
 
   // Event delegation events for buttons and actions (supports multiple buttons)

@@ -42,12 +42,7 @@
 
                 {# Column 4: Voting / Score #}
                 <div class="flex justify-center w-full md:justify-start md:w-auto">
-                    <div class="md:hidden">
-                        {{ votingButtons(post.fileSlug, false, false) }}
-                    </div>
-                    <div class="hidden md:block">
-                        {{ votingButtons(post.fileSlug, true) }}
-                    </div>
+                    {{ votingButtons(post.fileSlug) }}
                 </div>
 
                 {# Column 5: Actions (Reputation + Visit) #}

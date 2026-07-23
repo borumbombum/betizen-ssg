@@ -110,6 +110,8 @@ module.exports = {
     noItemToList: "Žádné položky k zobrazení.",
     spreadKarma: "Rozšiřujme karmu! 🤪",
     login: "Vstup",
+    requireLogin: "Přihlaste se pro přístup k vašim výhodám",
+    availablePromotions: "Dostupné akce",
     loginWithNostr: "Přihlásit se přes Nostr",
     loginWithEmail: "Odeslat přihlašovací kód",
     logout: "Odhlásit se",

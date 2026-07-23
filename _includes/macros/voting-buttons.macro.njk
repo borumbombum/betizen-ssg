@@ -1,8 +1,8 @@
 {# _includes/macros/voting-buttons.macro.njk #}
-{% macro votingButtons(entityId, smallOnMobile = false, hideLabelOnMobile = false) %}
+{% macro votingButtons(entityId) %}
   {% if config.votingStyle == "heart" %}
     <button
-        class="btn-bz-voting heart-btn btn {% if smallOnMobile %}btn-sm md:btn-md{% else %}btn-lg md:btn-md{% endif %} bg-transparent hover:bg-base-200 text-(--bz-red) gap-2 w-full md:w-auto"
+        class="btn-bz-voting heart-btn btn btn-md border border-gray-300 dark:border-gray-600 md:btn-md bg-transparent hover:bg-base-200 text-(--bz-red) gap-2 w-full md:w-auto"
         data-entity-id="{{ entityId }}"
         data-karma="{{ config.karmaPoints }}"
         aria-label="Vote up"
@@ -11,7 +11,7 @@
         
         <i data-lucide="loader-circle" class="loader-icon hidden animate-spin w-6 h-6 text-(--bz-red)"></i>
         
-        <span class="heart-label {% if hideLabelOnMobile %}hidden md:inline{% else %}inline{% endif %} text-sm !text-(--bz-red) whitespace-nowrap"
+        <span class="heart-label text-sm !text-(--bz-red) whitespace-nowrap"
             data-voted-text="{{ languages[page.lang].texts.heartVotedLabel }}"
             data-again-text="{{ languages[page.lang].texts.heartVoteAgainLabel }}">
         {{ languages[page.lang].texts.heartVoteLabel }}
@@ -20,14 +20,14 @@
   {% else %}
     {# Classic voting buttons remain unchanged... #}
     <button
-        class="btn-bz-voting btn {% if smallOnMobile %}btn-sm{% endif %} md:btn-md bg-transparent hover:bg-base-200 text-(--bz-green) text-neutral"
+        class="btn-bz-voting btn btn-lg md:btn-md bg-transparent hover:bg-base-200 text-(--bz-green) text-neutral"
         data-entity-id="{{ entityId }}"
         data-karma="{{ config.karmaPoints }}"
     >
         👍&nbsp;+{{ config.karmaPoints }}
     </button>
     <button
-        class="btn-bz-voting btn {% if smallOnMobile %}btn-sm{% endif %} md:btn-md bg-transparent text-(--bz-red) hover:bg-base-200 text-neutral"
+        class="btn-bz-voting btn btn-lg md:btn-md bg-transparent text-(--bz-red) hover:bg-base-200 text-neutral"
         data-entity-id="{{ entityId }}"
         data-karma="{{ -config.karmaPoints }}"
     >
