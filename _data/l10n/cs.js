@@ -30,6 +30,7 @@ module.exports = {
       // url: "https://url.hk/i/en/exptf",
       url: "https://hunnyplay.games/dbw3v7xvy",
       cta: "$5 000 Prize Pool",
+      badge: "HUNNYPLAY",
     },
     casino: {
       logo: "/assets/imgs/casinos/1xbet-logo.webp",
@@ -59,6 +60,8 @@ module.exports = {
   texts: {
     nostrLoginFailed:
       "Přihlášení přes Nostr selhalo. Ujistěte se, že máte signer.",
+    noNostrSigner:
+      "Nebyl detekován NIP-07 signer. Nainstalujte rozšíření (např. Alby) nebo vložte svůj nsec.",
     loginTimeout: "Přihlášení zrušeno nebo vypršel časový limit",
     googleLoginFailed: "Přihlášení přes Google selhalo",
     invalidNsec: "Neplatný nsec klíč",

@@ -15,17 +15,8 @@
         {% if google_locale == 'pt-br' %}{% set google_locale = 'pt-BR' %}{% endif %}
         <script src="https://accounts.google.com/gsi/client?hl={{ google_locale }}" defer></script>
 
-        {# Nostr Login (NIP-07 polyfill with NIP-46, read-only, local keypair) #}
-        <script src="https://unpkg.com/nostr-login@1.7.12/dist/nostr-login.min.js" defer></script>
+        {# Nostr login via NIP-07 extension (window.nostr) or nsec paste (nostr-tools) #}
         <script src="https://unpkg.com/nostr-tools@2.10.4/lib/nostr.bundle.js" defer></script>
-        <nostr-login
-          data-no-banner="true"
-          data-bunkers="nsec.app"
-          data-perms="sign_event:1"
-          data-methods="connect,extension,readOnly,local"
-          data-dark-mode="true"
-          style="position:fixed;left:-9999px;top:-9999px"
-        ></nostr-login>
 
         {# Ahrefs #}
         {# <script src="https://analytics.ahrefs.com/analytics.js" data-key="VRg+mahyNzTg8SI7FZIBjg" async></script> #}

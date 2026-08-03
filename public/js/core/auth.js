@@ -169,9 +169,8 @@ window.BZ.auth = {
 
     try {
       if (!window.nostr?.signEvent) {
-        document.dispatchEvent(
-          new CustomEvent("nlLaunch", { detail: "welcome" }),
-        );
+        showToast(getTranslation("texts.noNostrSigner"), "error");
+        return;
       }
 
       const challengeRes = await window.BZ.api.auth.getNostrChallenge();

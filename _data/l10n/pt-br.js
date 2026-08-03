@@ -28,6 +28,7 @@ module.exports = {
       image: "/assets/imgs/site/bonus-bg-2-pt.png",
       url: "https://url.hk/i/en/exptf",
       cta: "Cadastre-se e ganhe $5 grátis",
+      badge: "RedotPay",
     },
     casino: {
       logo: "/assets/imgs/casinos/1xbet-logo.webp",
@@ -112,6 +113,7 @@ module.exports = {
     availablePromotions: "Promoções disponíveis",
     loginWithNostr: "Entrar com Nostr",
     invalidNsec: "Chave nsec inválida",
+    noNostrSigner: "Nenhum signer NIP-07 detectado. Instale uma extensão (ex.: Alby) ou cole seu nsec.",
     loginTimeout: "Login cancelado ou tempo limite excedido",
     googleLoginFailed: "Login com Google falhou",
     loginWithEmail: "Enviar código de acesso",
