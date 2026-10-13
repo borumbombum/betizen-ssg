@@ -4,4 +4,5 @@ module.exports = {
   en: require("./l10n/en.js"),
   cs: require("./l10n/cs.js"),
   de: require("./l10n/de.js"),
+  ru: require("./l10n/ru.js"),
 };

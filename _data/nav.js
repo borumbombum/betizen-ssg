@@ -181,5 +181,27 @@ module.exports = function () {
         id: "term-binary",
       },
     ],
+    ru: [
+      {
+        text: "Казино",
+        url: "/ru/onlayn-kazino/",
+        id: "term-id-5",
+      },
+      {
+        text: "Крипто",
+        url: "/ru/onlayn-kazino/kripto/",
+        id: "term-crypto",
+      },
+      {
+        text: "Forex",
+        url: "/ru/forex/",
+        id: "term-forex",
+      },
+      {
+        text: "Бинарные",
+        url: "/ru/binarnye-optsiony/",
+        id: "term-binary",
+      },
+    ],
   };
 };
